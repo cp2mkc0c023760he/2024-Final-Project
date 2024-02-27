@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm -r ../Data/Raw
-for symbol in $(curl -s 'https://ticks.ex2archive.com/ticks/' | jq -r .[].name | grep -v -e Raw -e Zero -e Standart | grep -v -e m$ -e c$ -e '_') ; do
+for symbol in $(curl -s 'https://ticks.XXXXX.com/ticks/' | jq -r .[].name | grep -v -e Raw -e Zero -e Standart | grep -v -e m$ -e c$ -e '_') ; do
    echo -e $symbol"\tProcesando."
    years=`curl https://ticks.ex2archive.com/ticks/$symbol/ -s | jq -r '.[].name' | grep -v 2024`
    if grep -q 2023 <<< $years; then
