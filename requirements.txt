@@ -1,0 +1,9 @@
+optuna
+pandas
+numpy
+scikit-learn
+torch
+torchvision
+yfinance
+matplotlib
+jupyter
