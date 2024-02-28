@@ -50,8 +50,8 @@ def make_predictions(model_path, data, input_dim, hidden_dim, num_layers, device
 
 
     for inputs in data:
-        inputs = inputs[0].to(device)  # Assuming the DataLoader returns a tuple (inputs, targets) and you only need inputs
-        with torch.no_grad():  # Disable gradient calculation
+        inputs = inputs[0].to(device)  # DataLoader returns a tuple (inputs, targets) and you only need inputs
+        with torch.no_grad(): 
             outputs = model(inputs).squeeze()  # Get the predictions
         predictions.extend(outputs.cpu().numpy())
 
@@ -133,11 +133,11 @@ def plot_data(symbol, index, y_true,y_pred):
     plt.figure(figsize=(12, 6))
     plt.plot(index, y_true, label='Actual Data', color='blue')  
     plt.plot(index, y_pred, label='Predicted Data', color='red')
-    plt.title('Comparison of Predictions and Actual Data')
+    plt.title(f'{symbol} Comparison of Predictions and Actual Data')
     plt.xlabel('Sample Index')
     plt.ylabel('Value')
     plt.legend()
-    plt.savefig(f'{symbol}_comparison.png')
+    plt.savefig(f'Output/images/{symbol}_comparison.png')
 
 def calculate_metrics(y_true, y_pred):
     mae = mean_absolute_error(y_true, y_pred)

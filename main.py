@@ -143,7 +143,7 @@ def predict(ticker,file_path,model_path,num=1000):
 
     mae, mse, rmse, r2 = calculate_metrics(y_true, y_pred)
     print(f"MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
-    index = np.arange(60, len(y_true) + 60)
+    index = np.arange(60, len(y_true) + 60) #take into account the window size
     plot_data(ticker, index, y_true, y_pred)
 
     # Create comparison arrays using NumPy
@@ -164,10 +164,10 @@ def predict(ticker,file_path,model_path,num=1000):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="DL-UPC Project")
-    parser.add_argument("--option", type=int, help="Enter 1 to train the model or 2 to predict")
+    parser.add_argument("--option", default=2, type=int, help="Enter 1 to train the model or 2 to predict")
     parser.add_argument("--ticker", default="EURUSD", help="Enter the ticker")
     parser.add_argument("--file_path", default="Data/Forex-preprocessed/currencies.csv", help="Enter the file path")
-    parser.add_argument("--model_path", help="Enter the model path")
+    parser.add_argument("--model_path", default="models/LSTM/new_model_weights_EURUSD.pth", help="Enter the model path")
 
     args = parser.parse_args()
 
