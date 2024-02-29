@@ -132,7 +132,7 @@ def plot_data(symbol, index, y_true,y_pred):
     plt.xlabel('Sample Index')
     plt.ylabel('Value')
     plt.legend()
-    plt.savefig(f'Output/images/{symbol}_comparison.png')
+    plt.savefig(f'Output/images/{symbol}_comparison_new.png')
 
 def calculate_metrics(y_true, y_pred):
     mae = mean_absolute_error(y_true, y_pred)
