@@ -14,7 +14,8 @@ chmod +x ./*
 ./Download_all_symbols_slot_10m.sh
 ``
 ## Train a forex symbol
-1. Unzip Data/Forex-preprocessed/currencies.csv.*
+1. Create currencies csv file
+``cd Data/Forex-preprocessed && cat currencies.csv.gza* > currencies.csv.gz && gunzip currencies.csv.gz``
 2. Execute ``python --option 1 --ticker {ticker}``
 3. The output will be a model weights
 
