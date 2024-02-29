@@ -105,6 +105,8 @@ def predict(ticker,file_path,model_path,num=1000):
     sc = MinMaxScaler(feature_range=(0, 1))
     _ = sc.fit_transform(train_data)
     validation_set_scaled = sc.transform(validation_data)
+    scaler_target = MinMaxScaler(feature_range=(0, 1))
+    scaler_target.fit(train_data.iloc[:, pos].values.reshape(-1, 1))
     X_validation, _ = create_sequences(validation_set_scaled, pos)
 
     # Convert to PyTorch tensors
@@ -122,8 +124,7 @@ def predict(ticker,file_path,model_path,num=1000):
         hidden_dim=hyperparameters['hidden_dim'],
         num_layers=hyperparameters['num_layers'],
         device=device,
-        scaler=sc,
-        pos=pos
+        scaler=scaler_target
     )
 
     # Calculate metrics and take the last 100 values
