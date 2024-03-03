@@ -29,7 +29,7 @@ def preprocess_data(data):
     tuple: A tuple containing the training and validation data.
     """
     train_data = data.loc[data['Date'].dt.year < 2023, data.columns != 'Date']
-    validation_data = data.loc[(data['Date'].dt.year >= 2022) & (data['Date'].dt.year < 2024), data.columns != 'Date']
+    validation_data = data.loc[(data['Date'].dt.year >= 2023) & (data['Date'].dt.year < 2024), data.columns != 'Date']
     return train_data, validation_data
 
 def create_sequences(data, pos, seq_length=60):

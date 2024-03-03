@@ -8,6 +8,8 @@ import time
 from util import *
 from model import LSTMModel
 from data_preprocessing import load_data, preprocess_data, create_sequences
+from sklearn.model_selection import TimeSeriesSplit
+
 import argparse
 
 
@@ -146,20 +148,128 @@ def predict(ticker,file_path,model_path,num=1000):
     index = np.arange(60, len(y_true) + 60) #take into account the window size
     plot_data(ticker, index, y_true, y_pred)
 
-    # Create comparison arrays using NumPy
-    prediction_comparison = create_comparison_array(y_pred)
-    validation_comparison = create_comparison_array(y_true)
-
-    # Calculate accuracy using NumPy
-    accuracy = calculate_accuracy(prediction_comparison, validation_comparison)
-    print(f"Accuracy: {accuracy:.2f}")
 
 
-    #simulate trading session over 10 days
-    total_gains_losses = gain_loss(y_true, y_pred, num_intervals=480)
-    print("Total gains/losses over 480 intervals:", total_gains_losses[-1])
- 
+    final_portfolio_value, profit_loss, percent_profit_loss = backtest(y_true, y_pred)
 
+    print(f"Final Portfolio Value: ${final_portfolio_value:.2f}")
+    print(f"Profit/Loss: ${profit_loss:.2f}")
+    print(f"Percent Profit/Loss: {percent_profit_loss:.2f}%")
+
+def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
+    # Set the device
+    device = get_device()
+    print(f"Using device: {device}")
+
+    # Load and preprocess data
+    dataset = load_data(file_path)
+    train_data, validation_data = preprocess_data(dataset)
+    dimensions = len(dataset.columns) - 1
+    pos = dataset.columns.get_loc(ticker) - 1
+
+    # Feature scaling
+    sc = MinMaxScaler(feature_range=(0, 1))
+    training_set_scaled = sc.fit_transform(train_data)
+
+    # Creating sequences
+    X_train, y_train = create_sequences(training_set_scaled, pos)
+
+    # Create TimeSeriesSplit object
+    tscv = TimeSeriesSplit(n_splits=num_folds)
+
+    # Initialize lists to store evaluation metrics
+    mae_list = []
+    mse_list = []
+    rmse_list = []
+    r2_list = []
+
+    # Initialize lists to store backtesting metrics
+    final_portfolio_values = []
+    profit_losses = []
+    percent_profit_losses = []
+
+    # Perform time series cross-validation
+    fold = 1
+    for train_index, test_index in tscv.split(X_train):
+        print(f"Fold {fold}/{num_folds}")
+
+        # Split data into training and validation sets for this fold
+        X_train_fold, X_val_fold = X_train[train_index], X_train[test_index]
+        y_train_fold, y_val_fold = y_train[train_index], y_train[test_index]
+
+        # Convert to PyTorch tensors
+        X_train_fold_tensor = torch.tensor(X_train_fold, dtype=torch.float32)
+        y_train_fold_tensor = torch.tensor(y_train_fold, dtype=torch.float32)
+        X_val_fold_tensor = torch.tensor(X_val_fold, dtype=torch.float32)
+        y_val_fold_tensor = torch.tensor(y_val_fold, dtype=torch.float32)
+
+        # Create data loaders for this fold
+        train_dataset = TensorDataset(X_train_fold_tensor, y_train_fold_tensor)
+        train_loader = DataLoader(train_dataset, batch_size=hyperparameters['batch_size'], shuffle=True)
+
+        val_dataset = TensorDataset(X_val_fold_tensor, y_val_fold_tensor)
+        val_loader = DataLoader(val_dataset, batch_size=hyperparameters['batch_size'], shuffle=False)
+
+        # Initialize model, criterion, and optimizer
+        model = LSTMModel(input_dim=dimensions, hidden_dim=hyperparameters['hidden_dim'], num_layers=hyperparameters['num_layers'])
+        criterion = nn.MSELoss()
+        optimizer = optim.Adam(model.parameters(), lr=hyperparameters['lr'])
+        model.to(device)
+
+        # Training loop
+        for epoch in range(num_epochs):
+            model.train()
+            for X_batch, y_batch in train_loader:
+                X_batch, y_batch = X_batch.to(device), y_batch.to(device)
+                optimizer.zero_grad()
+                outputs = model(X_batch)
+                loss = criterion(outputs.squeeze(), y_batch)  # Squeeze the output
+                loss.backward()
+                optimizer.step()
+
+        # Evaluate model on validation data
+        model.eval()
+        with torch.no_grad():
+            y_pred = []
+            for X_batch, y_batch in val_loader:
+                X_batch, y_batch = X_batch.to(device), y_batch.to(device)
+                outputs = model(X_batch)
+                y_pred.extend(outputs.squeeze().cpu().numpy())
+            y_true = y_val_fold_tensor.numpy()
+
+        # Calculate evaluation metrics
+        mae, mse, rmse, r2 = calculate_metrics(y_true, y_pred)
+        mae_list.append(mae)
+        mse_list.append(mse)
+        rmse_list.append(rmse)
+        r2_list.append(r2)
+
+        print(f"Fold {fold} Evaluation - MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
+
+        # Calculate and print backtesting metrics
+        final_portfolio_value, profit_loss, percent_profit_loss = backtest(y_true, y_pred)
+        final_portfolio_values.append(final_portfolio_value)
+        profit_losses.append(profit_loss)
+        percent_profit_losses.append(percent_profit_loss)
+
+        print(f"Fold {fold} Backtesting - Evaluation: ${final_portfolio_value:.2f}, Profit/Loss: ${profit_loss:.2f}, Percent Profit/Loss: {percent_profit_loss:.2f}%")
+
+
+        fold += 1
+
+    # Report average metrics across all folds
+    avg_mae = np.mean(mae_list)
+    avg_mse = np.mean(mse_list)
+    avg_rmse = np.mean(rmse_list)
+    avg_r2 = np.mean(r2_list)
+
+    print(f"Average Evaluation Across {num_folds} Folds - MAE: {avg_mae}, MSE: {avg_mse}, RMSE: {avg_rmse}, R-squared: {avg_r2}")
+
+    avg_final_portfolio_value = np.mean(final_portfolio_values)
+    avg_profit_loss = np.mean(profit_losses)
+    avg_percent_profit_loss = np.mean(percent_profit_losses)
+
+    print(f"Average Backtesting Across {num_folds} Folds - Evaluation: ${avg_final_portfolio_value:.2f}, Profit/Loss: ${avg_profit_loss:.2f}, Percent Profit/Loss: {avg_percent_profit_loss:.2f}%")
 
 
 if __name__ == "__main__":
@@ -187,6 +297,12 @@ if __name__ == "__main__":
             if model_path == "":
                 model_path = f'models/LSTM/new_model_weights_{ticker}.pth'
             predict(ticker, file_path, model_path)
+        elif input_option == 3:
+            if ticker == "":
+                ticker = "EURUSD"
+            if file_path == "":
+                file_path = "Data/Forex-preprocessed/currencies.csv"
+            backtestingRW(ticker, file_path)
         else:
             print("Invalid option")
 
