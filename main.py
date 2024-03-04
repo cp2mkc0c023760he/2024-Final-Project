@@ -107,6 +107,8 @@ def predict(ticker,file_path,model_path,num=1000):
     sc = MinMaxScaler(feature_range=(0, 1))
     _ = sc.fit_transform(train_data)
     validation_set_scaled = sc.transform(validation_data)
+    scaler_target = MinMaxScaler(feature_range=(0, 1))
+    scaler_target.fit(train_data.iloc[:, pos].values.reshape(-1, 1))
     X_validation, _ = create_sequences(validation_set_scaled, pos)
 
     # Convert to PyTorch tensors
@@ -124,7 +126,7 @@ def predict(ticker,file_path,model_path,num=1000):
         hidden_dim=hyperparameters['hidden_dim'],
         num_layers=hyperparameters['num_layers'],
         device=device,
-        scaler=sc,
+        scaler=scaler_target,
         pos=pos
     )
 
@@ -163,16 +165,12 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
     # Load and preprocess data
     dataset = load_data(file_path)
-    train_data, validation_data = preprocess_data(dataset)
+    train_data = dataset.loc[:, dataset.columns != 'Date']
     dimensions = len(dataset.columns) - 1
     pos = dataset.columns.get_loc(ticker) - 1
 
-    # Feature scaling
-    sc = MinMaxScaler(feature_range=(0, 1))
-    training_set_scaled = sc.fit_transform(train_data)
-
-    # Creating sequences
-    X_train, y_train = create_sequences(training_set_scaled, pos)
+    # Convert DataFrame to NumPy array
+    train_data_array = train_data.values
 
     # Create TimeSeriesSplit object
     tscv = TimeSeriesSplit(n_splits=num_folds)
@@ -190,18 +188,28 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
     # Perform time series cross-validation
     fold = 1
-    for train_index, test_index in tscv.split(X_train):
+    for train_index, test_index in tscv.split(train_data_array):
         print(f"Fold {fold}/{num_folds}")
 
         # Split data into training and validation sets for this fold
-        X_train_fold, X_val_fold = X_train[train_index], X_train[test_index]
-        y_train_fold, y_val_fold = y_train[train_index], y_train[test_index]
+        X_train_fold, X_val_fold = train_data_array[train_index], train_data_array[test_index]
+
+        # Feature scaling
+        sc = MinMaxScaler(feature_range=(0, 1))
+        X_train_fold_scaled = sc.fit_transform(X_train_fold)
+        X_val_fold_scaled = sc.transform(X_val_fold)
+        scaler_target = MinMaxScaler(feature_range=(0, 1))
+        scaler_target.fit(X_train_fold[:, pos].reshape(-1, 1))
+
+        # Creating sequences
+        X_train_fold_seq, y_train_fold_seq = create_sequences(X_train_fold_scaled, pos)
+        X_validation_fold_seq, y_validation_fold_seq = create_sequences(X_val_fold_scaled, pos)
 
         # Convert to PyTorch tensors
-        X_train_fold_tensor = torch.tensor(X_train_fold, dtype=torch.float32)
-        y_train_fold_tensor = torch.tensor(y_train_fold, dtype=torch.float32)
-        X_val_fold_tensor = torch.tensor(X_val_fold, dtype=torch.float32)
-        y_val_fold_tensor = torch.tensor(y_val_fold, dtype=torch.float32)
+        X_train_fold_tensor = torch.tensor(X_train_fold_seq, dtype=torch.float32)
+        y_train_fold_tensor = torch.tensor(y_train_fold_seq, dtype=torch.float32)
+        X_val_fold_tensor = torch.tensor(X_validation_fold_seq, dtype=torch.float32)
+        y_val_fold_tensor = torch.tensor(y_validation_fold_seq, dtype=torch.float32)
 
         # Create data loaders for this fold
         train_dataset = TensorDataset(X_train_fold_tensor, y_train_fold_tensor)
@@ -235,6 +243,9 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
                 X_batch, y_batch = X_batch.to(device), y_batch.to(device)
                 outputs = model(X_batch)
                 y_pred.extend(outputs.squeeze().cpu().numpy())
+
+            #inverse transform the predictions
+            y_pred = scaler_target.inverse_transform(np.array(y_pred).reshape(-1, 1))
             y_true = y_val_fold_tensor.numpy()
 
         # Calculate evaluation metrics
@@ -274,7 +285,7 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="DL-UPC Project")
-    parser.add_argument("--option", default=2, type=int, help="Enter 1 to train the model or 2 to predict")
+    parser.add_argument("--option", default=3, type=int, help="Enter 1 to train the model or 2 to predict")
     parser.add_argument("--ticker", default="EURUSD", help="Enter the ticker")
     parser.add_argument("--file_path", default="Data/Forex-preprocessed/currencies.csv", help="Enter the file path")
     parser.add_argument("--model_path", default="models/LSTM/new_model_weights_EURUSD.pth", help="Enter the model path")
@@ -302,7 +313,7 @@ if __name__ == "__main__":
                 ticker = "EURUSD"
             if file_path == "":
                 file_path = "Data/Forex-preprocessed/currencies.csv"
-            backtestingRW(ticker, file_path)
+            cross_validation(ticker, file_path)
         else:
             print("Invalid option")
 

@@ -28,7 +28,7 @@ def load_model(model_path, input_dim, hidden_dim,num_layers,device):
     model.eval()
     return model
 
-def make_predictions(model_path, data, input_dim, hidden_dim, num_layers, device, scaler,pos):
+def make_predictions(model_path, data, input_dim, hidden_dim, num_layers, device, scaler):
     """
     Make predictions using a trained LSTM model.
 
@@ -57,12 +57,7 @@ def make_predictions(model_path, data, input_dim, hidden_dim, num_layers, device
 
     predictions = np.array(predictions)
     predictions_reshaped = predictions.reshape(-1, 1)  # Reshape for compatibility with scaler
-    #predictions = scaler.inverse_transform(predictions_reshaped)  # Inverse transform the predictions
-
-    scaler_for_feature = sklearn.preprocessing.MinMaxScaler()
-    scaler_for_feature.min_, scaler_for_feature.scale_ = scaler.min_[pos], scaler.scale_[pos]
-
-    scaled_predictions = scaler_for_feature.inverse_transform(predictions_reshaped)
+    scaled_predictions = scaler.inverse_transform(predictions_reshaped)
     return scaled_predictions
 
 
