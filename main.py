@@ -126,7 +126,7 @@ def predict(ticker,file_path,model_path,num=1000):
         hidden_dim=hyperparameters['hidden_dim'],
         num_layers=hyperparameters['num_layers'],
         device=device,
-        scaler=scaler_target,        
+        scaler=scaler_target        
     )
 
     # Calculate metrics and take the last 100 values
