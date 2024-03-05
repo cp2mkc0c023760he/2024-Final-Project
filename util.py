@@ -155,46 +155,45 @@ def get_device():
     else:
         return torch.device("cpu")  # Default to CPU if no GPU is available
 
-def buy_or_sell(close, pred, i):
+def backtest(y_true, y_pred, initial_cash=10000):
     """
-    Determine whether to buy or sell.
+    Backtest a trading strategy based on predicted values.
 
     Args:
     close (numpy.array): Array of closing prices.
     pred (numpy.array): Array of predicted values.
-    i (int): Current day index.
+    initial_capital (float): Initial amount of capital for trading.
 
     Returns:
-    bool: True for Buy, False for Sell.
+    tuple: Final portfolio value, profit/loss, percent profit/loss.
     """
-    if pred[i + 1] > close[i]:
-        return True  # Buy
-    else:
-        return False  # Sell
+    cash = initial_cash
+    position = 0
+    trades_count = 0
+    
+    for i in range(len(y_pred)):
+        if i == 0:
+            # Skip the first prediction as there's no previous prediction to compare with
+            continue
 
-def gain_loss(close, pred, num_intervals=36):
-    """
-    Calculate the total gain or loss over a specified number of intervals.
+        if y_pred[i] > y_pred[i-1] and cash > 0:
+            # Buy signal
+            position = cash / y_true[i-1]
+            cash = 0
+            trades_count += 1
+        elif y_pred[i] < y_pred[i-1] and position > 0:
+            # Sell signal
+            cash = position * y_true[i-1]
+            position = 0
+            
 
-    Args:
-    close (numpy.array): Array of closing prices.
-    pred (numpy.array): Array of predicted values.
-    num_intervals (int): Number of intervals to simulate.
+    final_portfolio_value = cash + (position * y_true[-1])
+    profit_loss = final_portfolio_value - initial_cash - trades_count * 2  # Subtract $2 commission per trade
+    percent_profit_loss = (profit_loss / initial_cash) * 100
 
-    Returns:
-    list: List of cumulative capital over the specified intervals.
-    """
-    total = []
-    capital = 0
+    return final_portfolio_value, profit_loss, percent_profit_loss
 
-    for i in range(num_intervals - 1):  # Loop over the intervals
-        diff = 1000 * (close[i + 1] - close[i])  # Calculate the difference in closing prices
-        if not buy_or_sell(close, pred, i):
-            diff = -diff
-        capital += diff
-        total.append(capital)
 
-    return total
 
 def create_comparison_array(data):
     # Calculate the difference between consecutive elements
