@@ -137,13 +137,6 @@ def predict(ticker,file_path,model_path,num=1000):
     min_length = min(len(y_pred), len(y_true))
     y_true = y_true[:min_length].to_numpy()
 
-    # print all values and include position
-    '''count=0
-    for i in range(min_length):
-        print(f"{count}- Predicted: {y_pred[i]}, Actual: {y_true[i]}")
-        count+=1
-        '''
-
     mae, mse, rmse, r2 = calculate_metrics(y_true, y_pred)
     print(f"MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
     index = np.arange(60, len(y_true) + 60) #take into account the window size
@@ -153,9 +146,12 @@ def predict(ticker,file_path,model_path,num=1000):
 
     final_portfolio_value, profit_loss, percent_profit_loss = backtest(y_true, y_pred)
 
-    print(f"Final Portfolio Value: ${final_portfolio_value:.2f}")
-    print(f"Profit/Loss: ${profit_loss:.2f}")
-    print(f"Percent Profit/Loss: {percent_profit_loss:.2f}%")
+    print(f"Final Portfolio Value: ${final_portfolio_value:.2f}, Profit/Loss: ${profit_loss:.2f}, Percent Profit/Loss: {percent_profit_loss:.2f}%")
+
+
+    #write to csv. Create if not exists and append results to end of file
+    with open('prediction_results.csv', 'a') as f:
+        f.write(f"{ticker},{mae},{mse},{rmse},{r2},{final_portfolio_value},{profit_loss},{percent_profit_loss}\n")
 
 def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
     # Set the device
@@ -262,7 +258,7 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
         profit_losses.append(profit_loss)
         percent_profit_losses.append(percent_profit_loss)
 
-        print(f"Fold {fold} Backtesting - Evaluation: ${final_portfolio_value:.2f}, Profit/Loss: ${profit_loss:.2f}, Percent Profit/Loss: {percent_profit_loss:.2f}%")
+        print(f"Fold {fold} Backtesting - Final Portfolio Value: ${final_portfolio_value:.2f}, Profit/Loss: ${profit_loss:.2f}, Percent Profit/Loss: {percent_profit_loss:.2f}%")
 
 
         fold += 1
@@ -280,6 +276,10 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
     avg_percent_profit_loss = np.mean(percent_profit_losses)
 
     print(f"Average Backtesting Across {num_folds} Folds - Evaluation: ${avg_final_portfolio_value:.2f}, Profit/Loss: ${avg_profit_loss:.2f}, Percent Profit/Loss: {avg_percent_profit_loss:.2f}%")
+    
+    #write to csv. Create if not exists and append results to end of file
+    with open('cross_valiation_results.csv', 'a') as f:
+        f.write(f"{ticker},{avg_mae},{avg_mse},{avg_rmse},{avg_r2},{avg_final_portfolio_value},{avg_profit_loss},{avg_percent_profit_loss}\n")
 
 
 if __name__ == "__main__":
