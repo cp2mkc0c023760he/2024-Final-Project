@@ -141,6 +141,21 @@ def calculate_metrics(y_true, y_pred):
     r2 = r2_score(y_true, y_pred)
     return mae, mse, rmse, r2
 
+def calculate_accuracy(y_true, y_pred):
+    # Accuracy - check if predictions are within 1% of the actual values
+    accuracy = np.mean(np.abs((y_true - y_pred) / y_true) < 0.01)
+
+    # Directional accuracy - check if the predictions are in the same direction as the actual values
+    count = 0
+    for i in range(len(y_true)-1):
+        if y_true[i+1] > y_true[i] and y_pred[i+1] > y_pred[i]:
+            count += 1
+        elif y_true[i+1] < y_true[i] and y_pred[i+1] < y_pred[i]:
+            count += 1
+    direction_accuracy = count / len(y_true)
+
+    return accuracy, direction_accuracy
+
 def get_device():
     """
     Get the device to run the model on.
@@ -195,15 +210,15 @@ def backtest(y_true, y_pred, initial_cash=10000):
 
 
 
-def create_comparison_array(data):
-    # Calculate the difference between consecutive elements
-    diffs = np.diff(data, axis=0)
+# def create_comparison_array(data):
+#     # Calculate the difference between consecutive elements
+#     diffs = np.diff(data, axis=0)
     
-    # Use np.sign to get -1, 0, and 1 based on the difference
-    comparison_array = np.sign(diffs)
-    return comparison_array
+#     # Use np.sign to get -1, 0, and 1 based on the difference
+#     comparison_array = np.sign(diffs)
+#     return comparison_array
 
-def calculate_accuracy(array1, array2):
-    # Convert to NumPy arrays and calculate the proportion of matching elements
-    array1_np, array2_np = np.array(array1), np.array(array2)
-    return np.mean(array1_np == array2_np)
+# def calculate_accuracy(array1, array2):
+#     # Convert to NumPy arrays and calculate the proportion of matching elements
+#     array1_np, array2_np = np.array(array1), np.array(array2)
+#     return np.mean(array1_np == array2_np)
