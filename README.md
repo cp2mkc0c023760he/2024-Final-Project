@@ -4,7 +4,7 @@
 This repository is the final project for the UPC School's Artificial Intelligence with Deep Learning postgraduate course (2023-2024). The team members are composed of:
 
 * Juanjo Nieto (Advisor)
-* Fernando Gordo
+* Fernando
 * Inés Badia
 * Oscar Santillana
 * Toni Lopez
