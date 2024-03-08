@@ -143,15 +143,22 @@ def calculate_metrics(y_true, y_pred):
 
 def calculate_accuracy(y_true, y_pred):
     # Accuracy - check if predictions are within 1% of the actual values
-    accuracy = np.mean(np.abs((y_true - y_pred) / y_true) < 0.01)
+    try:
+        accuracy = np.mean(np.abs((y_true - y_pred) / y_true) < 0.01)
+    except ZeroDivisionError:
+        print("Error in calculating accuracy")
 
     # Directional accuracy - check if the predictions are in the same direction as the actual values
     count = 0
-    for i in range(len(y_true)-1):
-        if y_true[i+1] > y_true[i] and y_pred[i+1] > y_pred[i]:
-            count += 1
-        elif y_true[i+1] < y_true[i] and y_pred[i+1] < y_pred[i]:
-            count += 1
+    try:
+        for i in range(len(y_true)-1):
+            if y_true[i+1] > y_true[i] and y_pred[i+1] > y_pred[i]:
+                count += 1
+            elif y_true[i+1] < y_true[i] and y_pred[i+1] < y_pred[i]:
+                count += 1
+    except:
+        print("Error in calculating directional accuracy")
+
     direction_accuracy = count / len(y_true)
 
     return accuracy, direction_accuracy
