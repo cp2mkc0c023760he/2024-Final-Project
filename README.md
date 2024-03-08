@@ -16,7 +16,6 @@ Our goal with is to develop robust forecasting models capable of predicting mark
 
 ## LSTM & Transformers Comparision
 
-# LSTM (Long Short-Term Memory)
 LSTM, is a type of recurrent neural network (RNN), offer a powerful framework for modeling sequential data. With their ability to capture long-term dependencies and remember past information, LSTM architectures excel in analyzing time series data such as financial markets. In this project, we explore the efficacy of LSTM networks in forecasting forex prices, harnessing their capacity to learn intricate patterns and dynamics inherent in market behavior.
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/5e291ada-33d6-4826-9b7c-35435097e5d6)
 
