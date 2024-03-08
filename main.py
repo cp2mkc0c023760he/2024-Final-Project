@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 import time
 from util import *
 from model import LSTMModel
-from data_preprocessing import load_data, preprocess_data, create_sequences
+from data_preprocessing import load_data, preprocess_data, create_sequences, market_hours
 from sklearn.model_selection import TimeSeriesSplit
 
 import argparse
@@ -165,8 +165,13 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
     # Load and preprocess data
     dataset = load_data(file_path)
+    
+    # market hours
+    dataset = market_hours(dataset)
+    
+
     train_data = dataset.loc[:, dataset.columns != 'Date']
-    dimensions = len(dataset.columns) - 1
+    dimensions = len(dataset. columns) - 1
     pos = dataset.columns.get_loc(ticker) - 1
 
     # Convert DataFrame to NumPy array
