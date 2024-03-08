@@ -23,8 +23,7 @@ LSTM, is a type of recurrent neural network (RNN), offer a powerful framework fo
 
 ##### Source: colah's blog
 
-####
-Transformers, is a type of neural network architecture that has gained significant attention in recent years, particularly in natural language processing tasks. It utilizes an attention mechanism to weigh the importance of different parts of the input data, allowing it to process sequences of information more effectively. In our context of predicting prices, a Transformer can analyze historical price data and extract relevant patterns and trends, enabling it to make accurate predictions about future price movements. The Transformer's ability to process multiple pieces of information simultaneously makes it particularly well-suited for handling large amounts of sequential data, such as financial time series, which can lead to more accurate and efficient forecasting models.
+#Transformers, is a type of neural network architecture that has gained significant attention in recent years, particularly in natural language processing tasks. It utilizes an attention mechanism to weigh the importance of different parts of the input data, allowing it to process sequences of information more effectively. In our context of predicting prices, a Transformer can analyze historical price data and extract relevant patterns and trends, enabling it to make accurate predictions about future price movements. The Transformer's ability to process multiple pieces of information simultaneously makes it particularly well-suited for handling large amounts of sequential data, such as financial time series, which can lead to more accurate and efficient forecasting models.
 
 ## Download the raw data
 This script will download all the public symbols from the company and:
