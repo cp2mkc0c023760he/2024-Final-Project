@@ -12,7 +12,7 @@ This repository is the final project for the UPC School's Artificial Intelligenc
 ## Project Overview
 
 In the world of financial markets, the ability to predict price movements accurately is crucial, especially in mitigating trading abuses. An 'abuser' in our context refers to someone who exploits information or technology to gain an unfair advantage, ultimately profiting at the expense of others. If someone as an abuser develops a deep learning model for price prediction, he gains an unfair advantage in the market, putting trading companies at a disadvantage.
-Our goal with this project is to develop robust forecasting models capable of predicting market prices in order to create strategies and measures to mitigate this problem, thereby safeguarding trading companies from such abuses.
+Our goal with is to develop robust forecasting models capable of predicting market prices in order to create strategies and measures to mitigate this problem, thereby safeguarding trading companies from such abuses.
 
 ## LSTM & Transformers Comparision
 
