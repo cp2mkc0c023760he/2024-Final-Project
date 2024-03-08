@@ -19,11 +19,12 @@ Our goal with is to develop robust forecasting models capable of predicting mark
 **LSTM**, is a type of recurrent neural network (RNN), offer a powerful framework for modeling sequential data. With their ability to capture long-term dependencies and remember past information, LSTM architectures excel in analyzing time series data such as financial markets. In this project, we explore the efficacy of LSTM networks in forecasting forex prices, harnessing their capacity to learn intricate patterns and dynamics inherent in market behavior.
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/1a0a88d5-536d-4e8b-9a6b-972625f6ac92)
-
-
 ##### Source: colah's blog
 
 **Transformers**, is a type of neural network architecture that has gained significant attention in recent years, particularly in natural language processing tasks. It utilizes an attention mechanism to weigh the importance of different parts of the input data, allowing it to process sequences of information more effectively. In our context of predicting prices, a Transformer can analyze historical price data and extract relevant patterns and trends, enabling it to make accurate predictions about future price movements. The Transformer's ability to process multiple pieces of information simultaneously makes it particularly well-suited for handling large amounts of sequential data, such as financial time series, which can lead to more accurate and efficient forecasting models.
+
+![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/b84192eb-5f05-47fd-8149-4d00e0098d91)
+##### Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]
 
 ## Download the raw data
 This script will download all the public symbols from the company and:
