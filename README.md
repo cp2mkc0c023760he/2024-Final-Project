@@ -1,5 +1,5 @@
 # Multivariable Time Series Forecasting for Trading Abuse
-# UPC AIDL-2024-Final-Project
+## UPC AIDL-2024-Final-Project
 
 This repository is the final project for the UPC School's Artificial Intelligence with Deep Learning postgraduate course (2023-2024). The team members are composed of:
 
