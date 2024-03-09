@@ -2,10 +2,15 @@ from sklearn.model_selection import GridSearchCV
 from data_preprocessing import load_data, preprocess_data
 import xgboost as xgb
 import numpy as np
+from util import market_hours, add_features
 
 def find_best_hyperparams(ticker, file_path):
     # Load and preprocess data
     dataset = load_data(file_path)
+    dataset = market_hours(dataset)
+    dataset = add_features(dataset)
+    dataset.to_csv('Data/Forex-preprocessed/FE_currencies.csv', index=False)
+
     train_data, validation_data = preprocess_data(dataset)
 
     # Creating features and target
