@@ -41,6 +41,18 @@ Disadvantages:
 </p>
 Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]
 
+Advantages:
+
+* Leverage parallel processing for faster training.
+* Better at capturing global dependencies in data.
+* Highly scalable.
+
+Disadvantages:
+
+* More complex architecture.
+* Require larger amounts of training data.
+* Resource-intensive during training.
+
 ## Download the raw data
 This script will download all the public symbols from the company and:
 1. Discard the ones that do not have year 2023
