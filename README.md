@@ -52,6 +52,9 @@ Disadvantages:
 ## Computational resources
 * 1x RTX 4090
   * runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+* Google Cloud
+* Colab Pro
+* Personal system with RTX 4090
 * Minimum Specs
   * 24GB Video Memory
   * 4 vCPU
