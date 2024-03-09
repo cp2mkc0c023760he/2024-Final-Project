@@ -55,7 +55,7 @@ In this project, we have chosen to rely on several metrics to assess the perform
   * Mean Squared Error (MSE): MSE calculates the average of the squares of the errors between the model's predictions and the actual values. The lower the MSE, the better the model's performance.
   * Root Mean Squared Error (RMSE): RMSE is simply the square root of MSE and provides a measure of the spread of errors. Like MSE, this value is sought to be minimized.
   * Coefficient of Determination (R-squared): This metric indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A value close to 1 indicates a good fit of the model to the data.
-  * Accuracy: It is a commonly used metric in classification problems in deep learning. Accuracy measures how accurately the model's predictions match the true responses.
+  * Accuracy: Metric used in classification problems in deep learning. Measures how accurately the model's predictions match the true responses, in our case the trend of the market.
 
 ## Computational resources
 * 1x RTX 4090
