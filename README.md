@@ -26,7 +26,7 @@ Source: colah's blog
 <p align="center">
   <img src="https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2" alt="Image" />
 </p>
-##### Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]
+Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]
 
 ## Download the raw data
 This script will download all the public symbols from the company and:
