@@ -49,6 +49,14 @@ Disadvantages:
 * Require larger amounts of training data.
 * Resource-intensive during training.
 
+## Metrics considered
+In this project, we have chosen to rely on several metrics to assess the performance of our models:
+  * Mean Absolute Error (MAE): This metric quantifies the average magnitude of errors in the model's predictions. A lower value indicates better accuracy.
+  * Mean Squared Error (MSE): MSE calculates the average of the squares of the errors between the model's predictions and the actual values. The lower the MSE, the better the model's performance.
+  * Root Mean Squared Error (RMSE): RMSE is simply the square root of MSE and provides a measure of the spread of errors. Like MSE, this value is sought to be minimized.
+  * Coefficient of Determination (R-squared): This metric indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A value close to 1 indicates a good fit of the model to the data.
+  * Accuracy: It is a commonly used metric in classification problems in deep learning. Accuracy measures how accurately the model's predictions match the true responses.
+
 ## Computational resources
 * 1x RTX 4090
   * runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
@@ -102,4 +110,8 @@ chmod +x ./*
 
 ## Cross Validation + Backtesting
 1. Execute ``python main.py --option 3 --ticker {ticker}``
-2. Output results for stdout 
+2. Output results for stdout
+
+## Conclusions
+
+## References
