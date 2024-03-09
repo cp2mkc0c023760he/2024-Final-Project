@@ -304,7 +304,7 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
     print(f"Average Backtesting Across {num_folds} Folds - Evaluation: ${avg_final_portfolio_value:.2f}, Profit/Loss: ${avg_profit_loss:.2f}, Percent Profit/Loss: {avg_percent_profit_loss:.2f}%")
     
     #write to csv. Create if not exists and append results to end of file
-    with open('Output/cross_valiation_results.csv', 'a') as f:
+    with open('Output/cross_validation_results.csv', 'a') as f:
         #if the file is empty, write the header
         if f.tell() == 0:
             f.write("Ticker,MAE,MSE,RMSE,R-squared,Final Portfolio Value,Profit/Loss,Percent Profit/Loss,1%Accuracy,Direction Accuracy\n")
