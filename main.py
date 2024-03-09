@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 import time
 from util import *
 from model import LSTMModel
-from data_preprocessing import load_data, preprocess_data, create_sequences, market_hours
+from data_preprocessing import load_data, preprocess_data, create_sequences, market_hours, add_features
 from sklearn.model_selection import TimeSeriesSplit
 import xgboost as xgb
 
@@ -318,7 +318,7 @@ def xgboost(ticker, file_path):
     dataset = load_data(file_path)
    # market hours
     dataset = market_hours(dataset)
-
+    dataset = add_features(dataset)
     train_data, validation_data = preprocess_data(dataset)
 
 
@@ -337,7 +337,7 @@ def xgboost(ticker, file_path):
 
 
     # XGBoost parameters from study
-    params = {'alpha': 0.1, 'colsample_bytree': 0.8, 'eta': 0.1, 'eval_metric': 'rmse', 'gamma': 0, 'lambda': 0.3, 'max_depth': 3, 'objective': 'reg:squarederror', 'seed': 42, 'subsample': 1.0}
+    params = {'alpha': 0.1, 'colsample_bytree': 0.8, 'eta': 0.3, 'eval_metric': 'rmse', 'gamma': 0, 'lambda': 0.3, 'max_depth': 5, 'objective': 'reg:squarederror', 'seed': 42, 'subsample': 0.8}
 
     # Training XGBoost model
     num_rounds = 100  # example number of rounds, tune as needed

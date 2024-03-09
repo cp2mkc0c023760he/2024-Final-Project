@@ -67,4 +67,50 @@ def market_hours(dataset):
     return dataset
 
 
+def add_features(dataset):
+    # Convert 'Date' column to datetime format
+    print("Adding features to the dataset")
+    dataset['Date'] = pd.to_datetime(dataset['Date'])
 
+    # Compute volatility measures
+    print("Computing volatility measures")
+    for ticker in dataset.columns[1:]:
+        dataset[f'{ticker}_volatility'] = dataset[ticker].rolling(window=10).std()
+
+    # Compute moving averages
+    print("Computing moving averages")
+    for ticker in dataset.columns[1:]:
+        dataset[f'{ticker}_moving_avg_30'] = dataset[ticker].rolling(window=30).mean()
+
+    # Compute price differentials
+    print("Computing price differentials")
+    for ticker in dataset.columns[1:]:
+        dataset[f'{ticker}_price_diff'] = dataset[ticker].diff()
+
+    # Compute momentum indicators
+    print("Computing momentum indicators")
+    for ticker in dataset.columns[1:]:
+        dataset[f'{ticker}_momentum'] = dataset[ticker].diff(4)
+    
+    # # Compute relative strength index (RSI)
+    # print("Computing relative strength index (RSI)")
+    # for ticker in dataset.columns[1:]:
+    #     delta = dataset[ticker].diff()
+    #     gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+    #     loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+    #     RS = gain / loss
+    #     dataset[f'{ticker}_RSI'] = 100 - (100 / (1 + RS))
+    
+    # # Compute moving average convergence divergence (MACD)
+    # print("Computing moving average convergence divergence (MACD)")
+    # for ticker in dataset.columns[1:]:
+    #     dataset[f'{ticker}_EMA_12'] = dataset[ticker].ewm(span=12, adjust=False).mean()
+    #     dataset[f'{ticker}_EMA_26'] = dataset[ticker].ewm(span=26, adjust=False).mean()
+    #     dataset[f'{ticker}_MACD'] = dataset[f'{ticker}_EMA_12'] - dataset[f'{ticker}_EMA_26']
+    #     dataset[f'{ticker}_signal_line'] = dataset[f'{ticker}_MACD'].ewm(span=9, adjust=False).mean()  
+
+    # Drop rows with NaN values
+    dataset = dataset.dropna()
+
+
+    return dataset
