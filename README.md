@@ -1,4 +1,5 @@
 # Multivariable Time Series Forecasting for Trading Abuse
+
 ## UPC AIDL-2024-Final-Project
 
 This repository is the final project for the UPC School's Artificial Intelligence with Deep Learning postgraduate course (2023-2024). The team members are composed of:
@@ -22,42 +23,47 @@ Our goal with is to develop robust forecasting models capable of predicting mark
 Source: colah's blog
 
 Advantages:
+
 * Good at capturing sequential dependencies in time series data.
 * Able to learn features autonomously
 * Provides some interpretability.
 
 Disadvantages:
+
 * Has difficulty long-distance dependencies in noisy markets.
 * Computationally expensive to train.
 * Susceptible to overfitting.
 
-
 **Transformers**, is a type of neural network architecture that has gained significant attention in recent years, particularly in natural language processing tasks. It utilizes an attention mechanism to weigh the importance of different parts of the input data, allowing it to process sequences of information more effectively. In our context of predicting prices, a Transformer can analyze historical price data and extract relevant patterns and trends, enabling it to make accurate predictions about future price movements. The Transformer's ability to process multiple pieces of information simultaneously makes it particularly well-suited for handling large amounts of sequential data, such as financial time series, which can lead to more accurate and efficient forecasting models.
 
-<p align="center">
-  <img src="https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2" alt="Image" />
-</p> 
+<img align="center" src="https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2" alt="Transformer detail" />
+
 Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]<br> 
 
 Advantages:
+
 * Leverage parallel processing for faster training.
 * Better at capturing global dependencies in data.
 * Highly scalable.
 
 Disadvantages:
+
 * More complex architecture.
 * Require larger amounts of training data.
 * Resource-intensive during training.
 
 ## Metrics considered
+
 In this project, we have chosen several metrics to assess the performance of our models:
-  * Mean Absolute Error (MAE): This metric quantifies the average magnitude of errors in the model's predictions. A lower value indicates better accuracy.
-  * Mean Squared Error (MSE): MSE calculates the average of the squares of the errors between the model's predictions and the actual values. The lower the MSE, the better the model's performance.
-  * Root Mean Squared Error (RMSE): RMSE is simply the square root of MSE and provides a measure of the spread of errors. Like MSE, this value is sought to be minimized.
-  * Coefficient of Determination (R-squared): This metric indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A value close to 1 indicates a good fit of the model to the data.
-  * Accuracy: Metric used in classification problems in deep learning. Measures how accurately the model's predictions match the true responses, in our case the trend of the market.
+
+* Mean Absolute Error (MAE): This metric quantifies the average magnitude of errors in the model's predictions. A lower value indicates better accuracy.
+* Mean Squared Error (MSE): MSE calculates the average of the squares of the errors between the model's predictions and the actual values. The lower the MSE, the better the model's performance.
+* Root Mean Squared Error (RMSE): RMSE is simply the square root of MSE and provides a measure of the spread of errors. Like MSE, this value is sought to be minimized.
+* Coefficient of Determination (R-squared): This metric indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A value close to 1 indicates a good fit of the model to the data.
+* Accuracy: Metric used in classification problems in deep learning. Measures how accurately the model's predictions match the true responses, in our case the trend of the market.
 
 ## Computational resources
+
 * 1x RTX 4090
   * runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
 * Google Cloud
@@ -68,27 +74,45 @@ In this project, we have chosen several metrics to assess the performance of our
   * 4 vCPU
   * 24GB System Memory
   * Total Disk: 40 GB
- 
+
 ## Milestones
-#### M0. Research.
+
+### M0. Research
+
 Preliminary research on LSTM and Transformer architectures for time series forecasting.
-#### M1. Custom dataset
+
+### M1. Custom dataset
+
 Creating a custom dataset tailored to the particular requirements from our project, including collecting public data and preprocessing historical price data for EUR pairs in ticks each 10 mins
-#### M2. Selection of symbols to predict (EUR pairs).
+
+### M2. Selection of symbols to predict (EUR pairs)
+
 Choosing the specific currency pairs (EUR pairs) that will be the focus of the price prediction models.
-#### M3. Initial versions of LSTM & Transformer.
-Adapting the base of our Transfomer arquitecture since https://huggingface.co/blog/informer and in the LSTM case from pytorch.org.
-#### M4. Hyper parameter tuning.
+
+### M3. Initial versions of LSTM & Transformer
+
+Adapting the base of our Transfomer arquitecture since <https://huggingface.co/blog/informer> and in the LSTM case from pytorch.org.
+
+### M4. Hyper parameter tuning
+
 Fine-tuning the hyperparameters of the LSTM and Transformer models to optimize their performance and accuracy
-#### M5. Final version and backtesting of the models.
+
+### M5. Final version and backtesting of the models
+
 Refinement both models and conducting backtesting to assess their performance and validate their effectiveness.
-#### M6. Results comparison between models.
+
+### M6. Results comparison between models
+
 Comparing the results obtained of both models to determine which architecture performs better for the task of price prediction.
-#### M7. Evaluate different symbols
+
+### M7. Evaluate different symbols
+
 For assessing their correlation and determine which one is the most predictable.
 
 ## Download the raw data
+
 This script will download all the public symbols from the company and:
+
 1. Discard the ones that do not have year 2023
 2. Merge the different ticks in 10 min slots, doing the median from the given values
 
@@ -98,17 +122,21 @@ cd ./Scripts
 chmod +x ./*
 ./Download_all_symbols_slot_10m.sh
 ``
+
 ## Train a forex symbol
+
 1. Create currencies csv file
 ``cd Data/Forex-preprocessed && cat currencies.csv.gza* > currencies.csv.gz && gunzip currencies.csv.gz``
 2. Execute ``python main.py --option 1 --ticker {ticker}``
 3. The output will be a model weights
 
 ## Inference
+
 1. Execute ``python main.py --option 2 --ticker {ticker} --model_path path``
-2. Output a image in Output/images and metrics for stdout 
+2. Output a image in Output/images and metrics for stdout
 
 ## Cross Validation + Backtesting
+
 1. Execute ``python main.py --option 3 --ticker {ticker}``
 2. Output results for stdout
 
