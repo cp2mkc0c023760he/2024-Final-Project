@@ -9,6 +9,8 @@ from util import *
 from model import LSTMModel
 from data_preprocessing import load_data, preprocess_data, create_sequences, market_hours
 from sklearn.model_selection import TimeSeriesSplit
+import xgboost as xgb
+
 
 import argparse
 
@@ -311,9 +313,57 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
         f.write(f"{ticker},{avg_mae},{avg_mse},{avg_rmse},{avg_r2},{avg_final_portfolio_value},{avg_profit_loss},{avg_percent_profit_loss},{avg_accuracy},{avg_direction_accuracy}\n")
 
 
+def xgboost(ticker, file_path):
+    # Load and preprocess data
+    dataset = load_data(file_path)
+   # market hours
+    dataset = market_hours(dataset)
+
+    train_data, validation_data = preprocess_data(dataset)
+
+
+    # Feature scaling (XGBoost doesn't require scaling)
+
+    # Creating features and target
+    X_train = train_data.drop(columns=[ticker]).values
+    y_train = train_data[ticker].values
+    X_validation = validation_data.drop(columns=[ticker]).values
+    y_validation = validation_data[ticker].values
+
+    # Create data matrices for XGBoost
+    dtrain = xgb.DMatrix(X_train, label=y_train)
+    dvalidation = xgb.DMatrix(X_validation, label=y_validation)
+
+
+
+    # XGBoost parameters from study
+    params = {'alpha': 0.1, 'colsample_bytree': 0.8, 'eta': 0.1, 'eval_metric': 'rmse', 'gamma': 0, 'lambda': 0.3, 'max_depth': 3, 'objective': 'reg:squarederror', 'seed': 42, 'subsample': 1.0}
+
+    # Training XGBoost model
+    num_rounds = 100  # example number of rounds, tune as needed
+    evals = [(dtrain, 'train'), (dvalidation, 'validation')]
+    xgb_model = xgb.train(params, dtrain, num_rounds, evals=evals, early_stopping_rounds=10)
+
+    # evaluate the model
+    y_pred = xgb_model.predict(dvalidation)
+    mae, mse, rmse, r2 = calculate_metrics(y_validation, y_pred)
+    print(f"MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
+
+    # calculate accuracy
+    accuracy, direction_accuracy = calculate_accuracy(y_validation, y_pred)
+    print(f"1% Accuracy: {accuracy}, Direction Accuracy: {direction_accuracy}")
+
+
+    # Save the model
+    model_path = f'xgboost_model_{ticker}.model'
+    xgb_model.save_model(model_path)
+
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="DL-UPC Project")
-    parser.add_argument("--option", default=2, type=int, help="Enter 1 to train the model or 2 to predict")
+    parser.add_argument("--option", default=4, type=int, help="Enter 1 to train the model or 2 to predict")
     parser.add_argument("--ticker", default="EURUSD", help="Enter the ticker")
     parser.add_argument("--file_path", default="Data/Forex-preprocessed/currencies.csv", help="Enter the file path")
     parser.add_argument("--model_path", default="models/LSTM/new_model_weights_EURUSD.pth", help="Enter the model path")
@@ -342,6 +392,13 @@ if __name__ == "__main__":
             if file_path == "":
                 file_path = "Data/Forex-preprocessed/currencies.csv"
             cross_validation(ticker, file_path)
+        elif input_option == 4:
+            if ticker == "":
+                ticker = "EURUSD"
+            if file_path == "":
+                file_path = "Data/Forex-preprocessed/currencies.csv"
+            xgboost(ticker, file_path)
+
         else:
             print("Invalid option")
 
