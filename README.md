@@ -29,7 +29,7 @@ Advantages:
 
 Disadvantages:
 
-* Struggles with long-range dependencies in noisy markets.
+* Has difficulty long-distance dependencies in noisy markets.
 * Computationally expensive to train.
 * Susceptible to overfitting.
 
