@@ -62,19 +62,22 @@ Disadvantages:
   * Total Disk: 40 GB
  
 ## Milestones
-* Research
-Preliminary research on LSTM and Transformer architectures for time series forecasting.
-* Custom dataset
-Creating a custom dataset tailored to the particular requirements from our project, including collecting public data and preprocessing historical price data for EUR pairs in ticks each 10 mins
-* Selection of symbols to predict (EUR pairs).
-Choosing the specific currency pairs (EUR pairs) that will be the focus of the price prediction models.
-* Initial versions of LSTM & Transformer.
-Adapting the base of our Transfomer arquitecture since https://huggingface.co/blog/informer and in the LSTM case from pytorch.org.
-* Hyper parameter tuning.
-* Final version and backtesting of the models.
-* Results comparison between models.
-* Evaluate different symbols
-
+0. Research.
+* Preliminary research on LSTM and Transformer architectures for time series forecasting.
+1. Custom dataset
+* Creating a custom dataset tailored to the particular requirements from our project, including collecting public data and preprocessing historical price data for EUR pairs in ticks each 10 mins
+2. Selection of symbols to predict (EUR pairs).
+* Choosing the specific currency pairs (EUR pairs) that will be the focus of the price prediction models.
+3. Initial versions of LSTM & Transformer.
+* Adapting the base of our Transfomer arquitecture since https://huggingface.co/blog/informer and in the LSTM case from pytorch.org.
+4. Hyper parameter tuning.
+* Fine-tuning the hyperparameters of the LSTM and Transformer models to optimize their performance and accuracy
+5. Final version and backtesting of the models.
+* Refinement both models and conducting backtesting to assess their performance and validate their effectiveness.
+6. Results comparison between models.
+* Comparing the results obtained of both models to determine which architecture performs better for the task of price prediction.
+7. Evaluate different symbols
+* For assessing their correlation and determine which one is the most predictable.
 
 ## Download the raw data
 This script will download all the public symbols from the company and:
