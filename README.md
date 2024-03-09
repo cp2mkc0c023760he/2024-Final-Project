@@ -50,7 +50,7 @@ Disadvantages:
 * Resource-intensive during training.
 
 ## Metrics considered
-In this project, we have chosen to rely on several metrics to assess the performance of our models:
+In this project, we have chosen several metrics to assess the performance of our models:
   * Mean Absolute Error (MAE): This metric quantifies the average magnitude of errors in the model's predictions. A lower value indicates better accuracy.
   * Mean Squared Error (MSE): MSE calculates the average of the squares of the errors between the model's predictions and the actual values. The lower the MSE, the better the model's performance.
   * Root Mean Squared Error (RMSE): RMSE is simply the square root of MSE and provides a measure of the spread of errors. Like MSE, this value is sought to be minimized.
