@@ -60,6 +60,21 @@ Disadvantages:
   * 4 vCPU
   * 24GB System Memory
   * Total Disk: 40 GB
+ 
+## Milestones
+* Research
+Preliminary research on LSTM and Transformer architectures for time series forecasting.
+* Custom dataset
+Creating a custom dataset tailored to the particular requirements from our project, including collecting public data and preprocessing historical price data for EUR pairs in ticks each 10 mins
+* Selection of symbols to predict (EUR pairs).
+Choosing the specific currency pairs (EUR pairs) that will be the focus of the price prediction models.
+* Initial versions of LSTM & Transformer.
+Adapting the base of our Transfomer arquitecture since https://huggingface.co/blog/informer and in the LSTM case from pytorch.org.
+* Hyper parameter tuning.
+* Final version and backtesting of the models.
+* Results comparison between models.
+* Evaluate different symbols
+
 
 ## Download the raw data
 This script will download all the public symbols from the company and:
