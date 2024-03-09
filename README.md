@@ -39,9 +39,7 @@ Disadvantages:
 <p align="center">
   <img src="https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2" alt="Image" />
 </p> Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]
-
-
-Advantages:
+<br>Advantages:
 
 * Leverage parallel processing for faster training.
 * Better at capturing global dependencies in data.
