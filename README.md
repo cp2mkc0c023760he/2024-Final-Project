@@ -22,10 +22,13 @@ Our goal with is to develop robust forecasting models capable of predicting mark
 Source: colah's blog
 
 Advantages:
+
 * Good at capturing sequential dependencies in time series data.
-*"Able to learn features autonomously
+* Able to learn features autonomously
 * Provides some interpretability.
+
 Disadvantages:
+
 * Struggles with long-range dependencies in noisy markets.
 * Computationally expensive to train.
 * Susceptible to overfitting.
