@@ -22,13 +22,11 @@ Our goal with is to develop robust forecasting models capable of predicting mark
 Source: colah's blog
 
 Advantages:
-
 * Good at capturing sequential dependencies in time series data.
 * Able to learn features autonomously
 * Provides some interpretability.
 
 Disadvantages:
-
 * Has difficulty long-distance dependencies in noisy markets.
 * Computationally expensive to train.
 * Susceptible to overfitting.
@@ -42,16 +40,23 @@ Disadvantages:
 Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]<br> 
 
 Advantages:
-
 * Leverage parallel processing for faster training.
 * Better at capturing global dependencies in data.
 * Highly scalable.
 
 Disadvantages:
-
 * More complex architecture.
 * Require larger amounts of training data.
 * Resource-intensive during training.
+
+## Computational resources
+1x RTX 4090
+runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+Minimum Specs
+24GB Video Memory
+4 vCPU
+24GB System Memory
+Total Disk: 40 GB
 
 ## Download the raw data
 This script will download all the public symbols from the company and:
