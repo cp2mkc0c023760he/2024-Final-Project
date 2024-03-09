@@ -317,8 +317,8 @@ def xgboost(ticker, file_path):
     # Load and preprocess data
     dataset = load_data(file_path)
    # market hours
-    dataset = market_hours(dataset)
-    dataset = add_features(dataset)
+   # dataset = market_hours(dataset)
+   # dataset = add_features(dataset)
     train_data, validation_data = preprocess_data(dataset)
 
 
@@ -352,6 +352,14 @@ def xgboost(ticker, file_path):
     # calculate accuracy
     accuracy, direction_accuracy = calculate_accuracy(y_validation, y_pred)
     print(f"1% Accuracy: {accuracy}, Direction Accuracy: {direction_accuracy}")
+
+    #write to csv. Create if not exists and append results to end of file
+    with open('Output/xgboost_results.csv', 'a') as f:
+        #if the file is empty, write the header
+        if f.tell() == 0:
+            f.write("Ticker,MAE,MSE,RMSE,R-squared,1%Accuracy,Direction Accuracy\n")
+        f.write(f"{ticker},{mae},{mse},{rmse},{r2},{accuracy},{direction_accuracy}\n")
+
 
 
     # Save the model
