@@ -70,9 +70,9 @@ In this project, we have chosen several metrics to assess the performance of our
   * Total Disk: 40 GB
  
 ## Milestones
-##### M0. Research.
+#### M0. Research.
 Preliminary research on LSTM and Transformer architectures for time series forecasting.
-##### M1. Custom dataset
+#### M1. Custom dataset
 Creating a custom dataset tailored to the particular requirements from our project, including collecting public data and preprocessing historical price data for EUR pairs in ticks each 10 mins
 ### M2. Selection of symbols to predict (EUR pairs).
 Choosing the specific currency pairs (EUR pairs) that will be the focus of the price prediction models.
