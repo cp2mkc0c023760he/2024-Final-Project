@@ -51,12 +51,12 @@ Disadvantages:
 
 ## Computational resources
 * 1x RTX 4090
-** runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
-Minimum Specs
-** 24GB Video Memory
-** 4 vCPU
-** 24GB System Memory
-** Total Disk: 40 GB
+  *runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
+* Minimum Specs
+  *24GB Video Memory
+  *4 vCPU
+  *24GB System Memory
+  *Total Disk: 40 GB
 
 ## Download the raw data
 This script will download all the public symbols from the company and:
