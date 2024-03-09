@@ -89,17 +89,19 @@ def train(ticker,file_path,num_epochs=10):
     # Plot training and validation loss
     plot_loss(training_loss_history, validation_loss_history)
 
-def predict(ticker,file_path,model_path,num=1000):
+def predict(ticker,file_path,model_path,num=10000):
     # Set the device 
     device = get_device()
     print(f"Using device: {device}")
 
     # Load and preprocess data
     dataset = load_data(file_path)
+
+    # keep only market hours
+    dataset = market_hours(dataset)
+
     train_data, validation_data = preprocess_data(dataset)
 
-    # Reduce the size of the validation data to be able to accomodate the window size and get the latest data
-    validation_data = validation_data.iloc[-5000:]
     dimensions = len(dataset.columns)-1
     pos =dataset.columns.get_loc(ticker) -1
 
@@ -130,8 +132,8 @@ def predict(ticker,file_path,model_path,num=1000):
     )
 
     # Calculate metrics and plot data
-    y_pred = predicted_prices[200:-100]
-    y_true = validation_data.iloc[259:, pos]
+    y_pred = predicted_prices
+    y_true = validation_data.iloc[59:, pos]
 
     # compare the length of the predictions and the actual values and get the minimum
     min_length = min(len(y_pred), len(y_true))
@@ -139,8 +141,7 @@ def predict(ticker,file_path,model_path,num=1000):
 
     mae, mse, rmse, r2 = calculate_metrics(y_true, y_pred)
     print(f"MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
-    index = np.arange(60, len(y_true) + 60) #take into account the window size
-    plot_data(ticker, index, y_true, y_pred)
+    plot_data(ticker, y_true, y_pred, num)
 
 
 
@@ -150,9 +151,11 @@ def predict(ticker,file_path,model_path,num=1000):
 
 
     accuracy , direction_accuracy = calculate_accuracy(y_true, y_pred)
+    print(f"1% Accuracy: {accuracy}, Direction Accuracy: {direction_accuracy}")
+
 
     #write to csv. Create if not exists and append results to end of file
-    with open('Output/prediction_results.csv', 'a') as f:
+    with open(f'Output/prediction_result_{num}.csv', 'a') as f:
         #if the file is empty, write the header
         if f.tell() == 0:
             f.write("Ticker,MAE,MSE,RMSE,R-squared,Final Portfolio Value,Profit/Loss,Percent Profit/Loss,1%Accuracy,Direction Accuracy\n")

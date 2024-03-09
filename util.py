@@ -125,15 +125,15 @@ def plot_loss(training_loss_history, validation_loss_history):
     plt.legend()
     plt.show()
 
-def plot_data(symbol, index, y_true,y_pred):
+def plot_data(symbol, y_true,y_pred,num):
     plt.figure(figsize=(12, 6))
-    plt.plot(index, y_true, label='Actual Data', color='blue')  
-    plt.plot(index, y_pred, label='Predicted Data', color='red')
+    plt.plot(y_true, label='Actual Data', color='blue')  
+    plt.plot(y_pred, label='Predicted Data', color='red')
     plt.title(f'{symbol} Comparison of Predictions and Actual Data')
-    plt.xlabel('Sample Index')
+    plt.xlabel('Number of 10min Ticks')
     plt.ylabel('Value')
     plt.legend()
-    plt.savefig(f'Output/images/{symbol}_comparison_new.png')
+    plt.savefig(f'Output/images/{symbol}_prediction_{num}.png')
 
 def calculate_metrics(y_true, y_pred):
     mae = mean_absolute_error(y_true, y_pred)
