@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 import time
 from util import *
 from model import LSTMModel
-from data_preprocessing import load_data, preprocess_data, create_sequences
+from data_preprocessing import load_data, preprocess_data, create_sequences, market_hours
 from sklearn.model_selection import TimeSeriesSplit
 
 import argparse
@@ -129,7 +129,7 @@ def predict(ticker,file_path,model_path,num=1000):
         scaler=scaler_target        
     )
 
-    # Calculate metrics and take the last 100 values
+    # Calculate metrics and plot data
     y_pred = predicted_prices[200:-100]
     y_true = validation_data.iloc[259:, pos]
 
@@ -149,9 +149,14 @@ def predict(ticker,file_path,model_path,num=1000):
     print(f"Final Portfolio Value: ${final_portfolio_value:.2f}, Profit/Loss: ${profit_loss:.2f}, Percent Profit/Loss: {percent_profit_loss:.2f}%")
 
 
+    accuracy , direction_accuracy = calculate_accuracy(y_true, y_pred)
+
     #write to csv. Create if not exists and append results to end of file
-    with open('prediction_results.csv', 'a') as f:
-        f.write(f"{ticker},{mae},{mse},{rmse},{r2},{final_portfolio_value},{profit_loss},{percent_profit_loss}\n")
+    with open('Output/prediction_results.csv', 'a') as f:
+        #if the file is empty, write the header
+        if f.tell() == 0:
+            f.write("Ticker,MAE,MSE,RMSE,R-squared,Final Portfolio Value,Profit/Loss,Percent Profit/Loss,1%Accuracy,Direction Accuracy\n")
+        f.write(f"{ticker},{mae},{mse},{rmse},{r2},{final_portfolio_value},{profit_loss},{percent_profit_loss},{accuracy},{direction_accuracy}\n")
 
 def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
     # Set the device
@@ -160,8 +165,13 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
     # Load and preprocess data
     dataset = load_data(file_path)
+    
+    # market hours
+    dataset = market_hours(dataset)
+    
+
     train_data = dataset.loc[:, dataset.columns != 'Date']
-    dimensions = len(dataset.columns) - 1
+    dimensions = len(dataset. columns) - 1
     pos = dataset.columns.get_loc(ticker) - 1
 
     # Convert DataFrame to NumPy array
@@ -175,6 +185,10 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
     mse_list = []
     rmse_list = []
     r2_list = []
+
+    # Initialize lists to store backtesting metrics
+    accuracy_list = []
+    direction_accuracy_list = []
 
     # Initialize lists to store backtesting metrics
     final_portfolio_values = []
@@ -252,6 +266,13 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
         print(f"Fold {fold} Evaluation - MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
 
+        # Calculate and print accuracy metrics
+        accuracy, direction_accuracy = calculate_accuracy(y_true, y_pred)
+        accuracy_list.append(accuracy)
+        direction_accuracy_list.append(direction_accuracy)
+
+        print(f"Fold {fold} Accuracy - 1% Accuracy: {accuracy}, Direction Accuracy: {direction_accuracy}")
+
         # Calculate and print backtesting metrics
         final_portfolio_value, profit_loss, percent_profit_loss = backtest(y_true, y_pred)
         final_portfolio_values.append(final_portfolio_value)
@@ -271,6 +292,11 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
     print(f"Average Evaluation Across {num_folds} Folds - MAE: {avg_mae}, MSE: {avg_mse}, RMSE: {avg_rmse}, R-squared: {avg_r2}")
 
+    avg_accuracy = np.mean(accuracy_list)
+    avg_direction_accuracy = np.mean(direction_accuracy_list)
+
+    print(f"Average Accuracy Across {num_folds} Folds - 1% Accuracy: {avg_accuracy}, Direction Accuracy: {avg_direction_accuracy}")
+
     avg_final_portfolio_value = np.mean(final_portfolio_values)
     avg_profit_loss = np.mean(profit_losses)
     avg_percent_profit_loss = np.mean(percent_profit_losses)
@@ -278,13 +304,16 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
     print(f"Average Backtesting Across {num_folds} Folds - Evaluation: ${avg_final_portfolio_value:.2f}, Profit/Loss: ${avg_profit_loss:.2f}, Percent Profit/Loss: {avg_percent_profit_loss:.2f}%")
     
     #write to csv. Create if not exists and append results to end of file
-    with open('cross_valiation_results.csv', 'a') as f:
-        f.write(f"{ticker},{avg_mae},{avg_mse},{avg_rmse},{avg_r2},{avg_final_portfolio_value},{avg_profit_loss},{avg_percent_profit_loss}\n")
+    with open('Output/cross_validation_results.csv', 'a') as f:
+        #if the file is empty, write the header
+        if f.tell() == 0:
+            f.write("Ticker,MAE,MSE,RMSE,R-squared,Final Portfolio Value,Profit/Loss,Percent Profit/Loss,1%Accuracy,Direction Accuracy\n")
+        f.write(f"{ticker},{avg_mae},{avg_mse},{avg_rmse},{avg_r2},{avg_final_portfolio_value},{avg_profit_loss},{avg_percent_profit_loss},{avg_accuracy},{avg_direction_accuracy}\n")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="DL-UPC Project")
-    parser.add_argument("--option", default=3, type=int, help="Enter 1 to train the model or 2 to predict")
+    parser.add_argument("--option", default=2, type=int, help="Enter 1 to train the model or 2 to predict")
     parser.add_argument("--ticker", default="EURUSD", help="Enter the ticker")
     parser.add_argument("--file_path", default="Data/Forex-preprocessed/currencies.csv", help="Enter the file path")
     parser.add_argument("--model_path", default="models/LSTM/new_model_weights_EURUSD.pth", help="Enter the model path")

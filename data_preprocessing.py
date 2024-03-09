@@ -50,5 +50,21 @@ def create_sequences(data, pos, seq_length=60):
         y.append(data[i, pos])
     return np.array(X), np.array(y)
 
+def market_hours(dataset):
+    # Define forex market operational hours (from 5:00pm ET Sunday through 5:00pm ET on Friday)
+    market_open_time = pd.Timestamp('17:00:00').time()  # 5:00pm ET
+    market_close_time = pd.Timestamp('17:00:00').time()  # 5:00pm ET
+
+    # Create boolean masks to identify rows outside forex market operational hours
+    outside_market_hours = (
+        (dataset['Date'].dt.dayofweek == 5) |  # Saturday
+        ((dataset['Date'].dt.dayofweek == 4) & (dataset['Date'].dt.time >= market_close_time)) |  # Friday after market close
+        ((dataset['Date'].dt.dayofweek == 6) & (dataset['Date'].dt.time < market_open_time))  # Sunday before market open
+    )
+
+    # Filter dataset to remove rows outside forex market operational hours
+    dataset = dataset[~outside_market_hours]
+    return dataset
+
 
 

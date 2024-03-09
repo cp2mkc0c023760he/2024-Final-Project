@@ -7,3 +7,4 @@ torchvision
 yfinance
 matplotlib
 jupyter
+seaborn
