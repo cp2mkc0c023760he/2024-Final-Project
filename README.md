@@ -41,6 +41,7 @@ Disadvantages:
 </p>
 Source: “Attention is all you need” paper by Vaswani, et al., 2017 [1]
 
+
 Advantages:
 
 * Leverage parallel processing for faster training.
