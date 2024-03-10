@@ -144,10 +144,6 @@ We recomend the use of a T4 system and it takes around 3h to finish.
 ![311542541-7e8c3f46-fc0a-4d8b-8050-38da2a3541a5](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/88acbfbc-4bf3-4247-a3b3-d651c2cd9f67)
 
 
-![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/7e8c3f46-fc0a-4d8b-8050-38da2a3541a5)
-
-![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/6f3522c1-e93e-4093-8571-4fe2d77ab9e2)
-
 ## Transformer Informer Results
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3153cff3-cfce-4717-9c49-4e2cdcc27d4d)
