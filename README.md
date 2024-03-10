@@ -67,7 +67,6 @@ In this project, we have chosen several metrics to assess the performance of our
 * Coefficient of Determination (R-squared): This metric indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A value close to 1 indicates a good fit of the model to the data.
 * Accuracy: A metric used in classification problems in deep learning, which measures how accurately the model's predictions match the true responses. In our case, it reflects the accuracy of predicting market trends. We introduced Directional Accuracy to assess if the predictions align with the actual values' directions. Additionally, we utilized another accuracy measure to determine if the predictions are within 1% of the actual values.
 
-
 ## Computational resources
 
 * Runpod Cloud - Custom LSTM
@@ -118,25 +117,25 @@ For assessing their correlation and determine which one is the most predictable.
 
 1. Create currencies csv file
 ``cd Data/ && cat currencies.csv.gza* > currencies.csv.gz && gunzip currencies.csv.gz``
-1. Execute ``python main.py --option 1 --ticker {ticker}``
-2. Output a model weights file. 
+2. Execute ``python main.py --option 1 --ticker {ticker}``
+3. Output a model weights file.
 
 #### Inference
 
 1. Execute ``python main.py --option 2 --ticker {ticker} --model_path path``
-2. Output an image in Output/images and ticker metrics. 
+2. Output an image in Output/images and ticker metrics.
 
 #### Cross Validation + Backtesting
 
 1. Execute ``python main.py --option 3 --ticker {ticker}``
-2. Output avg metrics from different folds. 
+2. Output avg metrics from different folds.
 
 ### Transformer - Informer
 
 The code done does the train, inference, coss validation and generate all the stadistics only by running the collab.
 We recomend the use of a T4 system and it takes around 3h to finish.
 
-## LSTM Results 
+## LSTM Results
 
 In these results, we have considered as a cuttoff point the currency pairs with a value above 50% in the cross-validation for the accuracy metric.
 
@@ -145,7 +144,6 @@ In these results, we have considered as a cuttoff point the currency pairs with 
 ![311542509-80d1dc5e-58b1-47ff-be5a-3a68fc19355_2](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/7563e90e-ff6e-4e0a-9b72-9b64852f83bf)
 
 ![311542541-7e8c3f46-fc0a-4d8b-8050-38da2a3541a5](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/88acbfbc-4bf3-4247-a3b3-d651c2cd9f67)
-
 
 ## Transformer Informer Results
 
@@ -156,10 +154,10 @@ In these results, we have considered as a cutoff point the currency pairs with a
 ![311542382-79670264-600a-4970-b10d-45e4e1d07261](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3e19ef02-8768-497b-b24a-c27a170e93a7)
 
 ## Results - Comparative
+
 In the 18 EUR currency pairs analized, only the two premises mentioned previously (cross validation & test > 50%) have been met in one pair, EURUSD, in the transformer case and in four pairs in LSTM case. In this summary table, we can confirm that it seems our LSTM model performs better than the Transformer.
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/49285541-9c12-430d-926c-aafb10c12e2d)
-
 
 ## Conclusions
 
@@ -175,11 +173,10 @@ In the 18 EUR currency pairs analized, only the two premises mentioned previousl
 
 * Creating a dataset is a complex task (missing data, holidays, timezones, etc..)
 * LSTM performs better with only one hidden layer → vanishing/exploding  gradient
-* Missing feature engineering step - since financial data has a lot of indicators we might leverage it. 
+* Missing feature engineering step - since financial data has a lot of indicators we might leverage it.
 * Classical ML algorithms might perform better → initial results of +60% accuracy in test with XGboost and little feature engineering → require less GPU resources (cheaper to train)
 * Simple operations (e.g. backtesting) become complex and need to be optimized when dealing with a huge dataset.
 * Working with git earlier to showcase progress and standardize steps.
-
 
 ## References
 
