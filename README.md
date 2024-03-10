@@ -141,6 +141,9 @@ We recomend the use of a T4 system and it takes around 3h to finish.
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/6f3522c1-e93e-4093-8571-4fe2d77ab9e2)
 
+## 
+<img src="[https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/6f3522c1-e93e-4093-8571-4fe2d77ab9e]" alt="Descripción de la imagen" width="400"/>
+
 ## Conclusions
 
 * Gained experience applying LSTM/Transformer models for Time Series Forecasting
