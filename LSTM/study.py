@@ -107,4 +107,4 @@ Output:
 Trial 0: Testing 1 layers, 195 hidden units, lr=5.912803350552988e-05, batch size=128
 Trial 62: Testing 1 layers, 200 hidden units, lr=9.214257869342024e-05, batch size=128
 Trial 62 finished with value: 4.047796440254754e-05 and parameters: {'num_layers': 1, 'lr': 9.214257869342024e-05, 'batch_size': 128, 'hidden_dim': 200}
-'''
+''' 

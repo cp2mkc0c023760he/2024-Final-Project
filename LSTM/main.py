@@ -18,7 +18,7 @@ hyperparameters = {
     'num_layers': 1,
     'lr': 9.214257869342024e-05, 
     'batch_size': 128,
-    'hidden_dim': 120
+    'hidden_dim': 200
 }
 
 
@@ -316,7 +316,7 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="DL-UPC Project")
-    parser.add_argument("--option", default=2, type=int, help="Enter 1 to train the model or 2 to predict")
+    parser.add_argument("--option", default=2, type=int, help="Enter 1 to train the model, 2 to predict or 3 for cross validation. Default is 2.")
     parser.add_argument("--ticker", default="EURUSD", help="Enter the ticker")
     parser.add_argument("--file_path", default="Data/Forex-preprocessed/currencies.csv", help="Enter the file path")
     parser.add_argument("--model_path", default="models/LSTM/new_model_weights_EURUSD.pth", help="Enter the model path")

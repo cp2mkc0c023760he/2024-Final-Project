@@ -65,12 +65,13 @@ In this project, we have chosen several metrics to assess the performance of our
 * Mean Squared Error (MSE): MSE calculates the average of the squares of the errors between the model's predictions and the actual values. The lower the MSE, the better the model's performance.
 * Root Mean Squared Error (RMSE): RMSE is simply the square root of MSE and provides a measure of the spread of errors. Like MSE, this value is sought to be minimized.
 * Coefficient of Determination (R-squared): This metric indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A value close to 1 indicates a good fit of the model to the data.
-* Accuracy: Metric used in classification problems in deep learning. Measures how accurately the model's predictions match the true responses, in our case the trend of the market.
+* Accuracy: A metric used in classification problems in deep learning, which measures how accurately the model's predictions match the true responses. In our case, it reflects the accuracy of predicting market trends. We introduced Directional Accuracy to assess if the predictions align with the actual values' directions. Additionally, we utilized another accuracy measure to determine if the predictions are within 1% of the actual values.
+
 
 ## Computational resources
 
 * Runpod Cloud - Custom LSTM
-  * System equiped with GPU RTX 4090
+  * System equipped with GPU RTX 4090
 
 * Colab Pro - Transformer-Informer
   * Option GPU NVIDIA T4 Tensor
@@ -87,7 +88,7 @@ Creating a custom dataset tailored to the particular requirements from our proje
 
 ### M2. Selection of symbols to predict (EUR pairs)
 
-Choosing the specific currency pairs (EUR pairs) that will be the focus of the price prediction models.
+Choosing the specific currency pairs (EUR pairs) that will be the focus of the price prediction models since they operate in same market hours.
 
 ### M3. Initial versions of LSTM & Transformer
 
@@ -118,17 +119,17 @@ For assessing their correlation and determine which one is the most predictable.
 1. Create currencies csv file
 ``cd Data/ && cat currencies.csv.gza* > currencies.csv.gz && gunzip currencies.csv.gz``
 1. Execute ``python main.py --option 1 --ticker {ticker}``
-2. The output will be a model weights
+2. Output a model weights file. 
 
 #### Inference
 
 1. Execute ``python main.py --option 2 --ticker {ticker} --model_path path``
-2. Output a image in Output/images and metrics for stdout
+2. Output an image in Output/images and ticker metrics. 
 
 #### Cross Validation + Backtesting
 
 1. Execute ``python main.py --option 3 --ticker {ticker}``
-2. Output results for stdout
+2. Output avg metrics from different folds. 
 
 ### Transformer - Informer
 
@@ -171,12 +172,12 @@ In these results, we have considered as a cutoff point the currency pairs with a
   * Seem to detect different patterns (different best predicted symbols)
   * Require more testing on other symbols to evaluate its performance
 
-* Creating a dataset is a complex task (missing data, holidays, timezones, etc..) - we spent maybe to much time trying to create it
-* LSTM performs better with only one hidden layer → vanishing gradient
+* Creating a dataset is a complex task (missing data, holidays, timezones, etc..)
+* LSTM performs better with only one hidden layer → vanishing/exploding  gradient
 * Missing feature engineering step - since financial data has a lot of indicators we might leverage it. 
-* Classical ML algorithms might perform better → initial results of +60% accuracy in test with XGboost and little feature engineering → require less GPU resources (cheaper to use)
-* Simple operations (e.g. backtesting) become complex and need to be optimized when dealing with huge dataset.
-* Working with git earlier to showcase progress and standardize steps
+* Classical ML algorithms might perform better → initial results of +60% accuracy in test with XGboost and little feature engineering → require less GPU resources (cheaper to train)
+* Simple operations (e.g. backtesting) become complex and need to be optimized when dealing with a huge dataset.
+* Working with git earlier to showcase progress and standardize steps.
 
 
 ## References
