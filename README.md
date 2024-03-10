@@ -37,22 +37,24 @@ Disadvantages:
 
 **Transformers**, is a type of neural network architecture that has gained significant attention in recent years, particularly in natural language processing tasks. It utilizes an attention mechanism to weigh the importance of different parts of the input data, allowing it to process sequences of information more effectively. In our context of predicting prices, a Transformer can analyze historical price data and extract relevant patterns and trends, enabling it to make accurate predictions about future price movements. The Transformer's ability to process multiple pieces of information simultaneously makes it particularly well-suited for handling large amounts of sequential data, such as financial time series, which can lead to more accurate and efficient forecasting models.
 
+
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2)
 Source: “Attention is all you need” paper by Vaswani, et al., 2017 <https://arxiv.org/abs/1706.03762>
 
-General Advantages:
+Advantages:
 
 * Leverage parallel processing for faster training.
 * Better at capturing global dependencies in data.
 * Highly scalable.
 
-General Disadvantages:
+Disadvantages:
 
 * More complex architecture.
 * Require larger amounts of training data.
 * Resource-intensive during training.
 
 **Transformer-Informer**, <https://huggingface.co/blog/informer>
+An informer is a time series forecasting model that implements enhancements to the basic Transformer, such as ProbSparse attention, to improve performance in predicting probabilistic distributions in multivariate time series.
 
 ## Metrics considered
 
