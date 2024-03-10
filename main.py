@@ -316,49 +316,55 @@ def cross_validation(ticker, file_path, num_folds=5, num_epochs=10):
 def xgboost(ticker, file_path):
     # Load and preprocess data
     dataset = load_data(file_path)
+
+    #reduce dataset to 50_000 rows
+    #dataset = dataset.iloc[-50_000:]
+    print('dataset loaded')
    # market hours
    # dataset = market_hours(dataset)
    # dataset = add_features(dataset)
     train_data, validation_data = preprocess_data(dataset)
 
+    symbols = ['EURAUD', 'EURCAD', 'EURCHF', 'EURCZK', 'EURDKK', 'EURGBP', 'EURHKD', 'EURHUF', 'EURJPY', 'EURMXN', 'EURNOK', 'EURNZD', 'EURPLN', 'EURSEK', 'EURSGD', 'EURTRY', 'EURUSD', 'EURZAR']
+    for ticker in symbols:
+        print(f"Predict model for {ticker}")
+        # Feature scaling (XGBoost doesn't require scaling)
 
-    # Feature scaling (XGBoost doesn't require scaling)
+        # Creating features and target
+        X_train = train_data.drop(columns=[ticker]).values
+        y_train = train_data[ticker].values
+        X_validation = validation_data.drop(columns=[ticker]).values
+        y_validation = validation_data[ticker].values
 
-    # Creating features and target
-    X_train = train_data.drop(columns=[ticker]).values
-    y_train = train_data[ticker].values
-    X_validation = validation_data.drop(columns=[ticker]).values
-    y_validation = validation_data[ticker].values
-
-    # Create data matrices for XGBoost
-    dtrain = xgb.DMatrix(X_train, label=y_train)
-    dvalidation = xgb.DMatrix(X_validation, label=y_validation)
+        # Create data matrices for XGBoost
+        dtrain = xgb.DMatrix(X_train, label=y_train)
+        dvalidation = xgb.DMatrix(X_validation, label=y_validation)
 
 
 
-    # XGBoost parameters from study
-    params = {'alpha': 0.1, 'colsample_bytree': 0.8, 'eta': 0.3, 'eval_metric': 'rmse', 'gamma': 0, 'lambda': 0.3, 'max_depth': 5, 'objective': 'reg:squarederror', 'seed': 42, 'subsample': 0.8}
+        # XGBoost parameters from study
+        params = {'alpha': 0.1, 'colsample_bytree': 0.8, 'eta': 0.3, 'eval_metric': 'rmse', 'gamma': 0, 'lambda': 0.3, 'max_depth': 5, 'objective': 'reg:squarederror', 'seed': 42, 'subsample': 0.8}
 
-    # Training XGBoost model
-    num_rounds = 100  # example number of rounds, tune as needed
-    evals = [(dtrain, 'train'), (dvalidation, 'validation')]
-    xgb_model = xgb.train(params, dtrain, num_rounds, evals=evals, early_stopping_rounds=10)
+        # Training XGBoost model
+        num_rounds = 100  # example number of rounds, tune as needed
+        evals = [(dtrain, 'train'), (dvalidation, 'validation')]
+        xgb_model = xgb.train(params, dtrain, num_rounds, evals=evals, early_stopping_rounds=10)
 
-    # evaluate the model
-    y_pred = xgb_model.predict(dvalidation)
-    mae, mse, rmse, r2 = calculate_metrics(y_validation, y_pred)
-    print(f"MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
+        # evaluate the model
+        y_pred = xgb_model.predict(dvalidation)
+        mae, mse, rmse, r2 = calculate_metrics(y_validation, y_pred)
+        print(f"MAE: {mae}, MSE: {mse}, RMSE: {rmse}, R-squared: {r2}")
 
-    # calculate accuracy
-    accuracy, direction_accuracy = calculate_accuracy(y_validation, y_pred)
-    print(f"1% Accuracy: {accuracy}, Direction Accuracy: {direction_accuracy}")
+        # calculate accuracy
+        accuracy, direction_accuracy = calculate_accuracy(y_validation, y_pred)
+        print(f"1% Accuracy: {accuracy}, Direction Accuracy: {direction_accuracy}")
 
-    #write to csv. Create if not exists and append results to end of file
-    with open('Output/xgboost_results.csv', 'a') as f:
-        #if the file is empty, write the header
-        if f.tell() == 0:
-            f.write("Ticker,MAE,MSE,RMSE,R-squared,1%Accuracy,Direction Accuracy\n")
-        f.write(f"{ticker},{mae},{mse},{rmse},{r2},{accuracy},{direction_accuracy}\n")
+        #write to csv. Create if not exists and append results to end of file
+        with open('Output/xgboost_results.csv', 'a') as f:
+            #if the file is empty, write the header
+            if f.tell() == 0:
+                f.write("Ticker,MAE,MSE,RMSE,R-squared,1%Accuracy,Direction Accuracy\n")
+            f.write(f"{ticker},{mae},{mse},{rmse},{r2},{accuracy},{direction_accuracy}\n")
 
 
 
