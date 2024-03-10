@@ -148,7 +148,7 @@ In these results, we have considered as a cuttoff point the currency pairs with 
 
 ## Transformer Informer Results
 
-In these results, we have considered as a cutoff point the currency pairs with a value above 50% both in the cross-validation and in the test
+In these results, we have considered as a cutoff point the currency pairs with a value above 50% both in the cross-validation and in the test. In the scenario where both the cross-validation and test exceed 50% occurs, the result is considered valid.
 
 ![311542318-3153cff3-cfce-4717-9c49-4e2cdcc27d4d](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/ec1820c1-919f-48e4-8e34-7b73663a8774)
 
