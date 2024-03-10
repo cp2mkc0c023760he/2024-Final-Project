@@ -5,7 +5,7 @@
 This repository is the final project for the UPC School's Artificial Intelligence with Deep Learning postgraduate course (2023-2024). The team members are composed of:
 
 * Juanjo Nieto (Advisor)
-* Fernando
+* Fernando G.
 * Inés Badia
 * Oscar Santillana
 * Toni Lopez
@@ -13,9 +13,10 @@ This repository is the final project for the UPC School's Artificial Intelligenc
 ## Project Overview
 
 In the world of financial markets, the ability to predict price movements accurately is crucial, especially in mitigating trading abuses. An 'abuser' in our context refers to someone who exploits information or technology to gain an unfair advantage, ultimately profiting at the expense of others. If someone as an abuser develops a deep learning model for price prediction, he gains an unfair advantage in the market, putting trading companies at a disadvantage.
+
 Our goal with is to develop robust forecasting models capable of predicting market prices in order to create strategies and measures to mitigate this problem, thereby safeguarding trading companies from such abuses.
 
-## LSTM & Transformers Comparision
+## Custom LSTM VS Transformer-Informer Comparision
 
 **LSTM**, is a type of recurrent neural network (RNN), offer a powerful framework for modeling sequential data. With their ability to capture long-term dependencies and remember past information, LSTM architectures excel in analyzing time series data such as financial markets. In this project, we explore the efficacy of LSTM networks in forecasting forex prices, harnessing their capacity to learn intricate patterns and dynamics inherent in market behavior.
 
@@ -37,19 +38,21 @@ Disadvantages:
 **Transformers**, is a type of neural network architecture that has gained significant attention in recent years, particularly in natural language processing tasks. It utilizes an attention mechanism to weigh the importance of different parts of the input data, allowing it to process sequences of information more effectively. In our context of predicting prices, a Transformer can analyze historical price data and extract relevant patterns and trends, enabling it to make accurate predictions about future price movements. The Transformer's ability to process multiple pieces of information simultaneously makes it particularly well-suited for handling large amounts of sequential data, such as financial time series, which can lead to more accurate and efficient forecasting models.
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2)
-Source: “Attention is all you need” paper by Vaswani, et al., 2017
+Source: “Attention is all you need” paper by Vaswani, et al., 2017 <https://arxiv.org/abs/1706.03762>
 
-Advantages:
+General Advantages:
 
 * Leverage parallel processing for faster training.
 * Better at capturing global dependencies in data.
 * Highly scalable.
 
-Disadvantages:
+General Disadvantages:
 
 * More complex architecture.
 * Require larger amounts of training data.
 * Resource-intensive during training.
+
+**Transformer-Informer**, <https://huggingface.co/blog/informer>
 
 ## Metrics considered
 
@@ -63,16 +66,11 @@ In this project, we have chosen several metrics to assess the performance of our
 
 ## Computational resources
 
-* 1x RTX 4090
-  * runpod/pytorch:2.1.0-py3.10-cuda11.8.0-devel-ubuntu22.04
-* Google Cloud
-* Colab Pro
-* Personal system with RTX 4090
-* Minimum Specs
-  * 24GB Video Memory
-  * 4 vCPU
-  * 24GB System Memory
-  * Total Disk: 40 GB
+* Google Cloud - Custom LSTM
+  * System equiped with GPU RTX 4090
+
+* Colab Pro - Transformer-Informer
+  * Option GPU NVIDIA T4 Tensor
 
 ## Milestones
 
@@ -108,37 +106,46 @@ Comparing the results obtained of both models to determine which architecture pe
 
 For assessing their correlation and determine which one is the most predictable.
 
-## Download the raw data
+## Run the models
 
-This script will download all the public symbols from the company and:
+### LSTM
 
-1. Discard the ones that do not have year 2023
-2. Merge the different ticks in 10 min slots, doing the median from the given values
-
-To execute it:
-``
-cd ./Scripts
-chmod +x ./*
-./Download_all_symbols_slot_10m.sh
-``
-
-## Train a forex symbol
+#### Train a forex symbol
 
 1. Create currencies csv file
-``cd Data/Forex-preprocessed && cat currencies.csv.gza* > currencies.csv.gz && gunzip currencies.csv.gz``
-2. Execute ``python main.py --option 1 --ticker {ticker}``
-3. The output will be a model weights
+``cd Data/ && cat currencies.csv.gza* > currencies.csv.gz && gunzip currencies.csv.gz``
+1. Execute ``python main.py --option 1 --ticker {ticker}``
+2. The output will be a model weights
 
-## Inference
+#### Inference
 
 1. Execute ``python main.py --option 2 --ticker {ticker} --model_path path``
 2. Output a image in Output/images and metrics for stdout
 
-## Cross Validation + Backtesting
+#### Cross Validation + Backtesting
 
 1. Execute ``python main.py --option 3 --ticker {ticker}``
 2. Output results for stdout
 
+### Transformer - Informer
+
+The code done does the train, inference, coss validation and generate all the stadistics only by running the collab.
+We recomend the use of a T4 system and it takes around 3h to finish.
+
 ## Conclusions
 
+* Gained experience applying LSTM/Transformer models for Time Series Forecasting
+* Backtesting, pipeline alignment and custom metrics help to compare model results
+* For the symbols chosen our LSTM model performs better than the Transformer:
+  * They could predict a few symbols pairs (5/18): EUR ( AUD|NOK|NZD|HKD|USD )
+    * 50 % < test accuracy (direction) < 76 %
+    * 50 % < cross validation accuracy (direction)
+* Our models:
+  * Seem to detect different patterns (different best predicted symbols)
+  * Require more testing on other symbols to evaluate its performance
+
 ## References
+
+* "Understanding LSTM Networks" blog post by Christopher Olah (Posted on August 27, 2015) <https://colah.github.io/posts/2015-08-Understanding-LSTMs/>
+* "Attention is all you need" paper by Vaswani (Submitted on 12 Jun 2017, last revised 2 Aug 2023) <https://arxiv.org/abs/1706.03762>
+* "Multivariate Probabilistic Time Series Forecasting with Informer" blog post by Eli Simhayev, Niels Rogge and Kashif Rasul (Published March 10, 2023) <https://huggingface.co/blog/informer>
