@@ -152,8 +152,6 @@ We recomend the use of a T4 system and it takes around 3h to finish.
 
 ## Results - Comparative
 
-![311542450-49285541-9c12-430d-926c-aafb10c12e2d](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/47a279be-a4bb-4205-b461-376fd1df086e)
-
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/49285541-9c12-430d-926c-aafb10c12e2d)
 
 
