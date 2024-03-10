@@ -148,12 +148,13 @@ We recomend the use of a T4 system and it takes around 3h to finish.
 
 ![311542318-3153cff3-cfce-4717-9c49-4e2cdcc27d4d](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/ec1820c1-919f-48e4-8e34-7b73663a8774)
 
-
-![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3153cff3-cfce-4717-9c49-4e2cdcc27d4d)
+![311542382-79670264-600a-4970-b10d-45e4e1d07261](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3e19ef02-8768-497b-b24a-c27a170e93a7)
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/79670264-600a-4970-b10d-45e4e1d07261)
 
 ## Results - Comparative
+
+![311542450-49285541-9c12-430d-926c-aafb10c12e2d](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/47a279be-a4bb-4205-b461-376fd1df086e)
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/49285541-9c12-430d-926c-aafb10c12e2d)
 
