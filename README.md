@@ -69,7 +69,7 @@ In this project, we have chosen several metrics to assess the performance of our
 
 ## Computational resources
 
-* Google Cloud - Custom LSTM
+* Runpod Cloud - Custom LSTM
   * System equiped with GPU RTX 4090
 
 * Colab Pro - Transformer-Informer
