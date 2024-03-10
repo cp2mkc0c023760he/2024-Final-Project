@@ -54,6 +54,7 @@ Disadvantages:
 * Resource-intensive during training.
 
 **Transformer-Informer**, <https://huggingface.co/blog/informer>
+
 An informer is a time series forecasting model that implements enhancements to the basic Transformer, such as ProbSparse attention, to improve performance in predicting probabilistic distributions in multivariate time series.
 
 ## Metrics considered
