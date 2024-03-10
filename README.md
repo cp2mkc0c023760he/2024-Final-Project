@@ -156,7 +156,7 @@ In these results, we have considered as a cutoff point the currency pairs with a
 ![311542382-79670264-600a-4970-b10d-45e4e1d07261](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3e19ef02-8768-497b-b24a-c27a170e93a7)
 
 ## Results - Comparative
-In the 18 EUR currency pairs analized, only the two premises mentioned previously (cross validation&test > 50%) have been met in one pair, EURUSD, in the transformer case and in four pairs in LSTM case.In this summary table, we can confirm that it seems our LSTM model performs better than the Transformer.
+In the 18 EUR currency pairs analized, only the two premises mentioned previously (cross validation & test > 50%) have been met in one pair, EURUSD, in the transformer case and in four pairs in LSTM case. In this summary table, we can confirm that it seems our LSTM model performs better than the Transformer.
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/49285541-9c12-430d-926c-aafb10c12e2d)
 
