@@ -149,13 +149,14 @@ In these results, we have considered as a cuttoff point the currency pairs with 
 
 ## Transformer Informer Results
 
-In these results, we have considered as a cutoff point the currency pairs with a value above 50% both in the cross-validation and in the test. The scenario where one of them, cross-validation or test, are below 50%, the result is considered invalid for our analysis.
+In these results, we have considered as a cutoff point the currency pairs with a value above 50% both in the cross-validation and in the test for the accuracy metric. The scenario where one of them, cross-validation or test, are below 50%, the result is considered invalid for our analysis.
 
 ![311542318-3153cff3-cfce-4717-9c49-4e2cdcc27d4d](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/ec1820c1-919f-48e4-8e34-7b73663a8774)
 
 ![311542382-79670264-600a-4970-b10d-45e4e1d07261](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3e19ef02-8768-497b-b24a-c27a170e93a7)
 
 ## Results - Comparative
+In the 18 EUR currency pairs analized, only the two premises mentioned previously have been met in one pair, EURUSD in the transformer case and in five pairs in LSTM case.
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/49285541-9c12-430d-926c-aafb10c12e2d)
 
