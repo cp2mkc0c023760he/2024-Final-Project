@@ -147,6 +147,14 @@ We recomend the use of a T4 system and it takes around 3h to finish.
   * Seem to detect different patterns (different best predicted symbols)
   * Require more testing on other symbols to evaluate its performance
 
+* Creating a dataset is a complex task (missing data, holidays, timezones, etc..) - we spent maybe to much time trying to create it
+* LSTM performs better with only one hidden layer → vanishing gradient
+* Missing feature engineering step - since financial data has a lot of indicators we might leverage it. 
+* Classical ML algorithms might perform better → initial results of +60% accuracy in test with XGboost and little feature engineering → require less GPU resources (cheaper to use)
+* Simple operations (e.g. backtesting) become complex and need to be optimized when dealing with huge dataset.
+* Working with git earlier to showcase progress and standardize steps
+
+
 ## References
 
 * "Understanding LSTM Networks" blog post by Christopher Olah (Posted on August 27, 2015) <https://colah.github.io/posts/2015-08-Understanding-LSTMs/>
