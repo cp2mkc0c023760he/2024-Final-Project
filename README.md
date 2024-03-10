@@ -39,6 +39,7 @@ Disadvantages:
 
 
 ![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2)
+
 Source: “Attention is all you need” paper by Vaswani, et al., 2017 <https://arxiv.org/abs/1706.03762>
 
 Advantages:
