@@ -137,7 +137,7 @@ We recomend the use of a T4 system and it takes around 3h to finish.
 
 ## LSTM Results 
 
-In these results, we have considered as a cuttoff point the currency pairs with a value above 50% in the cross-validation
+In these results, we have considered as a cuttoff point the currency pairs with a value above 50% in the cross-validation for the accuracy metric.
 
 ![311539719-04faa086-06b1-466e-a77a-b4111dd07013_2](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/8ba22b93-9cf7-4bad-9be9-4bb0aec16b79)
 
