@@ -83,7 +83,7 @@ Preliminary research on LSTM and Transformer architectures for time series forec
 
 ### M1. Custom dataset
 
-Creating a custom dataset tailored to the particular requirements from our project, including collecting public data and preprocessing historical price data for EUR pairs in ticks each 10 mins
+Creating a custom dataset tailored to the particular requirements from our project, including collecting public data and preprocessing historical price data for EUR pairs in ticks each 10 mins.
 
 ### M2. Selection of symbols to predict (EUR pairs)
 
@@ -95,7 +95,7 @@ Adapting the base of our Transfomer arquitecture since [Informer](https://huggin
 
 ### M4. Hyper parameter tuning
 
-Fine-tuning the hyperparameters of the LSTM and Transformer models to optimize their performance and accuracy
+Fine-tuning the hyperparameters of the LSTM and Transformer models to optimize their performance and accuracy.
 
 ### M5. Final version and backtesting of the models
 
@@ -105,7 +105,7 @@ Refinement both models and conducting backtesting to assess their performance an
 
 Comparing the results obtained of both models to determine which architecture performs better for the task of price prediction.
 
-### M7. Evaluate different symbols
+### M7. Evaluate different symbols (not achieved)
 
 For assessing their correlation and determine which one is the most predictable.
 
@@ -115,7 +115,7 @@ For assessing their correlation and determine which one is the most predictable.
 
 #### Train a forex symbol
 
-1. Create currencies csv file
+1. Create currencies csv file:
 ``cd Data/ && cat currencies.csv.gza* > currencies.csv.gz && gunzip currencies.csv.gz``
 2. Execute ``python main.py --option 1 --ticker {ticker}``
 3. Output a model weights file.
@@ -132,12 +132,12 @@ For assessing their correlation and determine which one is the most predictable.
 
 ### Transformer - Informer
 
-The code done does the train, inference, coss validation and generate all the stadistics only by running the collab.
-We recomend the use of a T4 system and it takes around 3h to finish.
+The code performs training, inference, cross-validation, and generates all statistics simply by executing the Colab.
+We recommend using a T4 system, and it typically completes in around 3 hours.
 
 ## LSTM Results
 
-In these results, we have considered as a cuttoff point the currency pairs with a value above 50% in the cross-validation for the accuracy metric.
+In the presented findings, we have established a threshold by designating currency pairs with a cross-validation accuracy metric surpassing 50% as the cutoff point.
 
 ![LSTM - Results](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/14118ba5-fd85-47dd-bd48-1a79bb7ac294)
 
@@ -155,7 +155,7 @@ In these results, we have considered as a cutoff point the currency pairs with a
 
 ## Results - Comparative
 
-In the 18 EUR currency pairs analized, only the two premises mentioned previously (cross validation & test > 50%) have been met in one pair, EURUSD, in the transformer case and in four pairs in LSTM case. In this summary table, we can confirm that it seems our LSTM model performs better than the Transformer.
+In the 18 EUR currency pairs analized, only the two premises mentioned previously (cross validation & test > 50%) have been met in one pair, EURUSD, in the Transformer-Informer case and in four pairs in LSTM case. In this summary table, we can confirm that it seems our LSTM model performs better than the Transformer.
 
 ![Comparative](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/a60e4d38-9cfa-4a4f-a675-5a8a0724ca2c)
 
@@ -171,11 +171,9 @@ In the 18 EUR currency pairs analized, only the two premises mentioned previousl
   * Seem to detect different patterns (different best predicted symbols)
   * Require more testing on other symbols to evaluate its performance
 
-* Creating a dataset is a complex task (missing data, holidays, timezones, etc..)
-* LSTM performs better with only one hidden layer → vanishing/exploding  gradient
+* Creating a dataset is a complex task
 * Feature engineering, since financial data is complex, needs to be researched
 * Classical ML algorithms (improved with XGBoost) might perform better
-  * Initial results of +60% accuracy in test with XGboost and little feature engineering, plus it require less GPU resources (cheaper to train)
 * Any operation become CPU/GPU intensive when dealing with huge datasets and must be optimized
 * Working with git earlier to showcase progress and standardize steps
 
