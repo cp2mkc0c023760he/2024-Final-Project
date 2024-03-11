@@ -2,7 +2,7 @@
 
 ## UPC AIDL-2024-Final-Project
 
-This repository is the final project for the UPC School's Artificial Intelligence with Deep Learning postgraduate course (2023-2024). The team members are composed of:
+This repository is the final project for the [UPC School's Artificial Intelligence with Deep Learning postgraduate course (2023-2024)](https://www.talent.upc.edu/ing/estudis/formacio/curs/310400/postgraduate-course-artificial-intelligence-deep-learning/). The team members are composed of:
 
 * Juanjo Nieto (Advisor)
 * Fernando G.
@@ -14,13 +14,13 @@ This repository is the final project for the UPC School's Artificial Intelligenc
 
 In the world of financial markets, the ability to predict price movements accurately is crucial, especially in mitigating trading abuses. An 'abuser' in our context refers to someone who exploits information or technology to gain an unfair advantage, ultimately profiting at the expense of others. If someone as an abuser develops a deep learning model for price prediction, he gains an unfair advantage in the market, putting trading companies at a disadvantage.
 
-Our goal with is to develop robust forecasting models capable of predicting market prices in order to create strategies and measures to mitigate this problem, thereby safeguarding trading companies from such abuses.
+Our goal with is to develop forecasting models capable of predicting market prices in order to create strategies and measures to mitigate this problem, thereby safeguarding trading companies from such abuses.
 
-## Custom LSTM VS Transformer-Informer Comparision
+## Custom LSTM vs Transformer-Informer Comparision
 
-**LSTM**, is a type of recurrent neural network (RNN), offer a powerful framework for modeling sequential data. With their ability to capture long-term dependencies and remember past information, LSTM architectures excel in analyzing time series data such as financial markets. In this project, we explore the efficacy of LSTM networks in forecasting forex prices, harnessing their capacity to learn intricate patterns and dynamics inherent in market behavior.
+**LSTM**, is a type of recurrent neural network (RNN), offers a powerful framework for modeling sequential data. With their ability to capture long-term dependencies and remember past information, LSTM architectures excel in analyzing time series data such as financial markets. In this project, we explore the efficacy of LSTM networks in forecasting forex prices, harnessing their capacity to learn intricate patterns and dynamics inherent in market behavior.
 
-![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/1a0a88d5-536d-4e8b-9a6b-972625f6ac92)
+![LSTM - How it works](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/1a0a88d5-536d-4e8b-9a6b-972625f6ac92)
 Source: colah's blog
 
 Advantages:
@@ -37,9 +37,9 @@ Disadvantages:
 
 **Transformers**, is a type of neural network architecture that has gained significant attention in recent years, particularly in natural language processing tasks. It utilizes an attention mechanism to weigh the importance of different parts of the input data, allowing it to process sequences of information more effectively. In our context of predicting prices, a Transformer can analyze historical price data and extract relevant patterns and trends, enabling it to make accurate predictions about future price movements. The Transformer's ability to process multiple pieces of information simultaneously makes it particularly well-suited for handling large amounts of sequential data, such as financial time series, which can lead to more accurate and efficient forecasting models.
 
-![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2)
+![Transformers - How it works](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/feeaed92-f661-4548-a846-ca5c381098e2)
 
-Source: “Attention is all you need” paper by Vaswani, et al., 2017 <https://arxiv.org/abs/1706.03762>
+Source: [“Attention is all you need” paper by Vaswani, et al., 2017](https://arxiv.org/abs/1706.03762)
 
 Advantages:
 
@@ -65,7 +65,7 @@ In this project, we have chosen several metrics to assess the performance of our
 * Mean Squared Error (MSE): MSE calculates the average of the squares of the errors between the model's predictions and the actual values. The lower the MSE, the better the model's performance.
 * Root Mean Squared Error (RMSE): RMSE is simply the square root of MSE and provides a measure of the spread of errors. Like MSE, this value is sought to be minimized.
 * Coefficient of Determination (R-squared): This metric indicates the proportion of variance in the dependent variable that is predictable from the independent variable(s). A value close to 1 indicates a good fit of the model to the data.
-* Accuracy: A metric used in classification problems in deep learning, which measures how accurately the model's predictions match the true responses. In our case, it reflects the accuracy of predicting market trends. We introduced Directional Accuracy to assess if the predictions align with the actual values' directions. Additionally, we utilized another accuracy measure to determine if the predictions are within 1% of the actual values.
+* Accuracy: A metric used in classification problems in deep learning, which measures how accurately the model's predictions match the true responses. In our case, it reflects the accuracy of predicting market trends. We introduced Direction Accuracy to assess if the predictions align with the actual values' directions. Additionally, we utilized another accuracy measure to determine if the predictions are within 1% of the actual values.
 
 ## Computational resources
 
@@ -73,7 +73,7 @@ In this project, we have chosen several metrics to assess the performance of our
   * System equipped with GPU RTX 4090
 
 * Colab Pro - Transformer-Informer
-  * Option GPU NVIDIA T4 Tensor
+  * GPU NVIDIA T4 Tensor
 
 ## Milestones
 
@@ -91,7 +91,7 @@ Choosing the specific currency pairs (EUR pairs) that will be the focus of the p
 
 ### M3. Initial versions of LSTM & Transformer
 
-Adapting the base of our Transfomer arquitecture since <https://huggingface.co/blog/informer> and in the LSTM case from pytorch.org.
+Adapting the base of our Transfomer arquitecture since [Informer](https://huggingface.co/blog/informer) and in the LSTM case from pytorch.org.
 
 ### M4. Hyper parameter tuning
 
