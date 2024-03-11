@@ -139,17 +139,17 @@ We recomend the use of a T4 system and it takes around 3h to finish.
 
 In these results, we have considered as a cuttoff point the currency pairs with a value above 50% in the cross-validation for the accuracy metric.
 
-![Captura de pantalla 2024-03-10 225019](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/34eb3883-c3c9-4174-b6ab-43b4fcbe7024)
+![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/14118ba5-fd85-47dd-bd48-1a79bb7ac294)
 
-![311542509-80d1dc5e-58b1-47ff-be5a-3a68fc19355_2](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/7563e90e-ff6e-4e0a-9b72-9b64852f83bf)
+![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/7563e90e-ff6e-4e0a-9b72-9b64852f83bf)
 
-![311542541-7e8c3f46-fc0a-4d8b-8050-38da2a3541a5](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/88acbfbc-4bf3-4247-a3b3-d651c2cd9f67)
+![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/88acbfbc-4bf3-4247-a3b3-d651c2cd9f67)
 
 ## Transformer Informer Results
 
 In these results, we have considered as a cutoff point the currency pairs with a value above 50% both in the cross-validation and in the test for the accuracy metric. The scenario where one of them, cross-validation or test, are below 50%, the result is considered invalid for our analysis.
 
-![311542318-3153cff3-cfce-4717-9c49-4e2cdcc27d4d](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/ec1820c1-919f-48e4-8e34-7b73663a8774)
+![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/b821c692-1c78-4707-af81-d0074606cd5c)
 
 ![311542382-79670264-600a-4970-b10d-45e4e1d07261](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3e19ef02-8768-497b-b24a-c27a170e93a7)
 
@@ -157,7 +157,7 @@ In these results, we have considered as a cutoff point the currency pairs with a
 
 In the 18 EUR currency pairs analized, only the two premises mentioned previously (cross validation & test > 50%) have been met in one pair, EURUSD, in the transformer case and in four pairs in LSTM case. In this summary table, we can confirm that it seems our LSTM model performs better than the Transformer.
 
-![image](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/49285541-9c12-430d-926c-aafb10c12e2d)
+![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/a60e4d38-9cfa-4a4f-a675-5a8a0724ca2c)
 
 ## Conclusions
 
@@ -165,18 +165,19 @@ In the 18 EUR currency pairs analized, only the two premises mentioned previousl
 * Backtesting, pipeline alignment and custom metrics help to compare model results
 * For the symbols chosen our LSTM model performs better than the Transformer:
   * They could predict a few symbols pairs (5/18): EUR ( AUD|NOK|NZD|HKD|USD )
-    * 50 % < test accuracy (direction) < 76 %
-    * 50 % < cross validation accuracy (direction)
+    * Test accuracy (direction): between 50 % and 71 %
+    * Cross validation accuracy (direction): greater than 50 %
 * Our models:
   * Seem to detect different patterns (different best predicted symbols)
   * Require more testing on other symbols to evaluate its performance
 
 * Creating a dataset is a complex task (missing data, holidays, timezones, etc..)
 * LSTM performs better with only one hidden layer → vanishing/exploding  gradient
-* Missing feature engineering step - since financial data has a lot of indicators we might leverage it.
-* Classical ML algorithms might perform better → initial results of +60% accuracy in test with XGboost and little feature engineering → require less GPU resources (cheaper to train)
-* Simple operations (e.g. backtesting) become complex and need to be optimized when dealing with a huge dataset.
-* Working with git earlier to showcase progress and standardize steps.
+* Feature engineering, since financial data is complex, needs to be researched
+* Classical ML algorithms (improved with XGBoost) might perform better
+  * Initial results of +60% accuracy in test with XGboost and little feature engineering, plus it require less GPU resources (cheaper to train)
+* Any operation become CPU/GPU intensive when dealing with huge datasets and must be optimized
+* Working with git earlier to showcase progress and standardize steps
 
 ## References
 
