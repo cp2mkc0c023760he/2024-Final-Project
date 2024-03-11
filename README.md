@@ -1,4 +1,4 @@
-# Multivariable Time Series Forecasting for Trading Abuse
+# Multivariable Time Series Forecasting for Trading Abuse with Deep Learning
 
 ## UPC AIDL-2024-Final-Project
 
@@ -139,25 +139,25 @@ We recomend the use of a T4 system and it takes around 3h to finish.
 
 In these results, we have considered as a cuttoff point the currency pairs with a value above 50% in the cross-validation for the accuracy metric.
 
-![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/14118ba5-fd85-47dd-bd48-1a79bb7ac294)
+![LSTM - Results](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/14118ba5-fd85-47dd-bd48-1a79bb7ac294)
 
-![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/7563e90e-ff6e-4e0a-9b72-9b64852f83bf)
+![Direction Accuarcy VS 1% Accuarcy](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/7563e90e-ff6e-4e0a-9b72-9b64852f83bf)
 
-![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/88acbfbc-4bf3-4247-a3b3-d651c2cd9f67)
+![EURAUD and EURUSD Symbol](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/88acbfbc-4bf3-4247-a3b3-d651c2cd9f67)
 
 ## Transformer Informer Results
 
 In these results, we have considered as a cutoff point the currency pairs with a value above 50% both in the cross-validation and in the test for the accuracy metric. The scenario where one of them, cross-validation or test, are below 50%, the result is considered invalid for our analysis.
 
-![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/b821c692-1c78-4707-af81-d0074606cd5c)
+![Transformer - Results](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/b821c692-1c78-4707-af81-d0074606cd5c)
 
-![311542382-79670264-600a-4970-b10d-45e4e1d07261](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3e19ef02-8768-497b-b24a-c27a170e93a7)
+![EURUSD Symbol](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/126424332/3e19ef02-8768-497b-b24a-c27a170e93a7)
 
 ## Results - Comparative
 
 In the 18 EUR currency pairs analized, only the two premises mentioned previously (cross validation & test > 50%) have been met in one pair, EURUSD, in the transformer case and in four pairs in LSTM case. In this summary table, we can confirm that it seems our LSTM model performs better than the Transformer.
 
-![](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/a60e4d38-9cfa-4a4f-a675-5a8a0724ca2c)
+![Comparative](https://github.com/cp2mkc0c023760he/2024-Final-Project/assets/122474104/a60e4d38-9cfa-4a4f-a675-5a8a0724ca2c)
 
 ## Conclusions
 
